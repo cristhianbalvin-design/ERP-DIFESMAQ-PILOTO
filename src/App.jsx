@@ -12,6 +12,7 @@ import { CrearOTPage } from './pages/CrearOTPage.jsx';
 import { FlotaRentalPage, ContratosRentalPage, DespachosRentalPage, LiquidacionRentalPage, DashboardRentalPage } from './pages/AlquileresPages.jsx';
 import { DashboardMaestranza, BandejaMaestranza, CrearOFPage, DetalleOFPage, EstructurasBOM, ControlDePiso } from './pages/MaestranzaPages.jsx';
 import { DashboardTransporte, MonitorViajes, CrearOVPage, HojaDeRuta, MaestroRutas, LiquidacionTransporte } from './pages/TransportePages.jsx';
+import { DashboardRepuestos, PedidosVenta, CrearPedidoPage, DetallePedidoPage, CatalogoPrecios, DespachosRepuestos } from './pages/RepuestosVentaPages.jsx';
 
 const TWEAKS_DEFAULTS = {
   "accentColor": "#00BCD4",
@@ -68,10 +69,12 @@ const PAGE_LABELS = {
   // Línea: Maestranza
   "dashboard-maestranza":      { title: "Dashboard Maestranza",    crumb: "Maestranza y Fab." },
   // Línea: Venta de Repuestos
-  "dashboard-repuestos":       { title: "Dashboard Repuestos",     crumb: "Venta de Repuestos" },
-  "pedidos-venta":             { title: "Pedidos de Venta",        crumb: "Venta de Repuestos" },
-  "catalogo-precios":          { title: "Catálogo y Precios",      crumb: "Venta de Repuestos" },
-  "despachos-repuestos":       { title: "Despachos",               crumb: "Venta de Repuestos" },
+  "dashboard-repuestos":        { title: "Dashboard Repuestos",     crumb: "Venta de Repuestos" },
+  "pedidos-venta":              { title: "Pedidos de Venta",        crumb: "Venta de Repuestos" },
+  "repuestos-crear-pedido":     { title: "Nuevo Pedido de Venta",   crumb: "Venta de Repuestos › PVs" },
+  "repuestos-detalle-pedido":   { title: "Detalle de Pedido",       crumb: "Venta de Repuestos › PVs" },
+  "catalogo-precios":           { title: "Catálogo y Precios",      crumb: "Venta de Repuestos" },
+  "despachos-repuestos":        { title: "Despachos",               crumb: "Venta de Repuestos" },
   // Confiabilidad
   "indicadores-confiabilidad": { title: "Indicadores MTBF/MTTR",   crumb: "Confiabilidad" },
   // Almacén
@@ -120,6 +123,7 @@ export const App = () => {
   const [currentOT, setCurrentOT] = useState("OT-2026-050");
   const [currentOF, setCurrentOF] = useState("OF-2026-001");
   const [currentOV, setCurrentOV] = useState("OV-2026-001");
+  const [currentPV, setCurrentPV] = useState("PV-2026-001");
   const [tweaks, setTweaks] = useState(TWEAKS_DEFAULTS);
   const [tweaksOpen, setTweaksOpen] = useState(false);
 
@@ -196,6 +200,12 @@ export const App = () => {
       case "transporte-ruta":           content = <HojaDeRuta onNav={setCurrent} ovId={currentOV}/>; break;
       case "transporte-tarifas":        content = <MaestroRutas onNav={setCurrent}/>; break;
       case "transporte-liquidacion":    content = <LiquidacionTransporte onNav={setCurrent}/>; break;
+      case "dashboard-repuestos":       content = <DashboardRepuestos onNav={setCurrent} setCurrentPV={setCurrentPV}/>; break;
+      case "pedidos-venta":             content = <PedidosVenta onNav={setCurrent} setCurrentPV={setCurrentPV}/>; break;
+      case "repuestos-crear-pedido":    content = <CrearPedidoPage onNav={setCurrent}/>; break;
+      case "repuestos-detalle-pedido":  content = <DetallePedidoPage onNav={setCurrent} pvId={currentPV}/>; break;
+      case "catalogo-precios":          content = <CatalogoPrecios/>; break;
+      case "despachos-repuestos":       content = <DespachosRepuestos onNav={setCurrent} setCurrentPV={setCurrentPV}/>; break;
       default: content = <PlaceholderPage title={label.title}/>;
     }
   }
