@@ -620,92 +620,35 @@ La OT es el objeto central del sistema. **No puede crearse de forma arbitraria**
 
 ---
 
-#### 3.1 Los cuatro orígenes de una OT
+#### 3.1 Apertura de OT: Matriz de Configuración (Lógica DBS)
 
-El botón "+ Nueva OT" nunca abre directamente el formulario. Siempre presenta primero un selector de origen. Esto no es solo UX — es el sistema reforzando el proceso correcto cada vez que alguien crea una OT.
+La OT es el objeto central del sistema. **No puede crearse de forma narrativa ni arbitraria**. Para alinear a ZAHORY SAC con los estándares mundiales de distribución de maquinaria (ej. Ferreyros/Caterpillar), la apertura de toda OT se realiza obligatoriamente mediante una **Matriz de Configuración en Cascada (Lógica DBS)**.
 
-```
-┌─────────────────────────────────────────────────────────┐
-│ ¿Cómo nace esta OT?                                    │
-│                                                         │
-│  📋 Desde backlog        ⚡ Correctivo directo          │
-│  (Recomendado)           (Solo emergencias)             │
-│                                                         │
-│  🔧 Acondicionamiento    🔄 Retorno desde mina          │
-│  (Equipo nuevo propio)   (Equipo que vuelve a Lima)     │
-└─────────────────────────────────────────────────────────┘
-```
+El botón "+ Nueva OT" abre un Modal donde el usuario debe configurar los tres ejes rectores del servicio. Esta combinación define automáticamente quién asume el costo, si es facturable y a qué CECO se imputa.
 
-**ORIGEN 1 — Desde el Backlog** *(origen principal y preferido)*
+**EJE 1: Sede / Ubicación (¿Dónde se cargan los costos fijos?)**
+- Taller Ate (Carapongo)
+- Taller Satipo (Lurín)
+- Proyecto / Unidad Minera (Ej. Pepas de Oro, Buenaventura)
 
-El Planner revisa el backlog priorizado por score y convierte un ítem en OT. Es el camino correcto porque garantiza que toda intervención tiene una necesidad documentada antes de ejecutarse.
+**EJE 2: Tipo de Servicio (¿Cómo se ejecuta el trabajo?)**
+- **Servicio de Taller:** Se ejecuta en sedes propias. Aplica tarifas de taller.
+- **Servicio de Campo:** El técnico viaja al punto. Requiere OTs adicionales de logística/transporte.
+- **Soporte de Proyecto:** Trabajo rutinario dentro de una mina bajo contrato permanente.
 
-- **Punto de entrada:** botón "Crear OT" en la fila del backlog (solo visible si estado = "Listo para OT") o desde el panel lateral de detalle del backlog
-- **Backlogs seleccionables:** solo backlogs cuyo ciclo de vida sea distinto de "Transferido a OT" y distinto de "Descartado". Los backlogs ya transferidos o descartados no aparecen en el selector
-- **Datos pre-llenados:** equipo, proyecto, sistema, descripción del hallazgo, trabajo requerido, prioridad, ¿requiere parada? (fondo #E3F2FD como indicador visual de campo pre-llenado)
-- **Genealogía:** la referencia `Contrato → Equipo → BKL-XXXX → OT-XXXX` queda grabada de forma inmutable
-- **Fusión:** si hay otros backlogs del mismo equipo y sistema listos para OT, el sistema sugiere agruparlos en una sola intervención con botón directo de fusión
-- **Verificación de stock:** al planificar materiales, el sistema muestra stock disponible en tiempo real. Si hay stock → reserva automática. Si no hay → la OT pasa a "Pendiente de recursos" y genera solicitud de reposición automática
-- **Estado inicial:** "Programada con recursos" si todo el material está disponible. "Pendiente de recursos" si falta alguno
-- **Badge en todas las vistas:** 🟢 `Desde backlog`
-- **Quién puede crear:** Planner, Supervisor, Jefe de Taller, Admin, Configurador
+**EJE 3: Segmento de Cargo (¿Quién paga y cuál es la naturaleza del gasto?)**
+Este es el eje más importante del ERP financiero:
+- **01 - Preventivo (Facturable):** Mantenimiento por horómetro. Obliga a seleccionar contrato/OS.
+- **02 - Correctivo (Facturable):** Reparación por falla. Obliga a seleccionar contrato/OS.
+- **03 - Garantía (No Facturable):** El costo lo asume ZAHORY SAC o el fabricante. Requiere aprobación gerencial.
+- **04 - Interno / Inversión (No Facturable):** Acondicionamiento de equipos propios. El campo "Cliente" se bloquea y el ingreso facturable es $0.00. Exige checklist obligatorio antes del cierre.
+- **05 - Rental (No Facturable directamente por OT):** Trabajo de sostenimiento sobre un equipo que actualmente está bajo un Contrato de Alquiler. El costo va contra la rentabilidad del alquiler. Obliga a vincular el "Contrato Rental" activo.
 
-**ORIGEN 2 — Correctivo directo** *(solo para emergencias sin backlog previo)*
-
-Cuando una falla crítica no da tiempo al ciclo de backlog → análisis → programación. Se permite pero se registra y se mide.
-
-- **Punto de entrada:** selector de origen desde la pantalla de OTs, desde la ficha del equipo ("⚡ Crear OT correctiva"), o desde la tabla del dashboard en equipos con DMR en riesgo
-- **Datos pre-llenados:** equipo (si se viene desde la ficha), tipo de OT = Correctiva, prioridad = Urgente
-- **Campo obligatorio adicional:** motivo de no registrar backlog previo (Emergencia sin tiempo / Falla detectada en este momento / Instrucción directa del cliente / Otro). Sin este campo el botón "Crear OT" permanece bloqueado
-- **Advertencia permanente:** banner naranja visible en el formulario — "Esta OT no tiene hallazgo formal registrado. Se recomienda crear un backlog si hay tiempo."
-- **Alerta de proceso:** si el porcentaje de correctivos directos supera el 30% del total de OTs del período, el indicador de salud emite alerta naranja visible en el selector de origen y en el listado de OTs
-- **Estado inicial:** "En ejecución" (es emergencia, no hay tiempo de programar)
-- **Badge en todas las vistas:** 🟡 `Correctivo directo`
-- **Nota en historial del equipo:** "OT creada sin backlog previo"
-- **Quién puede crear:** Planner, Supervisor, Jefe de Taller, Admin, Configurador
-
-**ORIGEN 3 — Acondicionamiento de equipo propio** *(equipo nuevo que entra al taller)*
-
-Cuando ZAHORY SAC incorpora un equipo propio y debe prepararlo antes de enviarlo a mina. No hay cliente ni contrato — es una inversión interna.
-
-- **Punto de entrada:** al registrar un equipo nuevo con propietario = ZAHORY SAC y estado = "Ingresado a taller", el sistema propone automáticamente crear la OT de Acondicionamiento. También disponible desde el selector de origen. Solo muestra equipos con propietario = ZAHORY SAC en el selector de activo
-- **Datos pre-llenados:** tipo = Acondicionamiento, propietario = ZAHORY SAC, es facturable = NO, ingreso facturable = $0.00
-- **Campos bloqueados:** tipo de OT, propietario, "es facturable", ingreso facturable — no son editables
-- **Checklist de acondicionamiento obligatorio** (10 ítems con barra de progreso — la OT no puede cerrar hasta completarlos todos):
-  1. Limpieza integral del equipo
-  2. Verificación de niveles: aceite motor, hidráulico y refrigerante
-  3. Inspección del sistema eléctrico, cableado y conectores
-  4. Revisión de mangueras, cilindros y componentes hidráulicos
-  5. Verificación del sistema neumático y compresor de aire
-  6. Prueba del sistema de frenos y freno de emergencia
-  7. Revisión de luces, alarmas, bocinas y señalización de seguridad
-  8. Calibración del tablero de control e instrumentos de medición
-  9. Prueba de carga y ciclo operativo completo (mínimo 30 minutos)
-  10. Verificación de documentación técnica y etiquetado de componentes
-- **Al cerrar:** el equipo cambia a "Listo para mina". El costo total queda como "costo histórico de acondicionamiento" en la ficha del activo. El sistema solicita asignar el equipo a un proyecto
-- **Estado inicial:** "Lista para ejecución"
-- **Badge en todas las vistas:** ⬜ `Acondicionamiento`
-- **En el dashboard de costos:** Ingreso = $0.00 en gris con etiqueta "inversión", Margen = N/A. No se incluyen en el cálculo del margen global del período
-- **Quién puede crear:** Admin, Jefe de Taller, Configurador
-
-**ORIGEN 4 — Retorno desde mina a taller** *(equipo que vuelve a Lima por falla o programación)*
-
-Cuando un equipo en operación debe trasladarse de mina a Lima para intervención mayor.
-
-- **Punto de entrada (tres vías):**
-  - El técnico marca "🔵 Retorno a taller requerido" en el reporte diario → sistema alerta al Planner y muestra backlogs activos del equipo para vincular
-  - El Planner ve un backlog con flag "Requiere retorno a taller" → botón "Coordinar retorno y crear OT"
-  - Desde la ficha del equipo cuando estado = "Retorno requerido"
-- **Este origen tiene dos fases secuenciales (stepper visual):**
-  - *Fase 1 — Coordinación logística:* se registra equipo, fecha estimada de llegada, responsable del traslado, transportista y notas. En esta fase el sistema muestra como contexto los backlogs del equipo que tienen `requiereRetorno = true`, para que el Planner los vincule a la coordinación antes de crear la OT. No es una OT aún — es la gestión del movimiento físico
-  - *Fase 2 — OT en taller:* al confirmar la llegada del equipo al taller, el sistema propone crear la OT de intervención. El equipo se pre-llena desde la Fase 1 (fondo #E0F7FA como indicador visual). La genealogía completa queda grabada: `Contrato → Equipo → BKL(s) de retorno → Coordinación logística → OT nueva`
-- **Vinculación al proyecto de mina:** la OT de taller queda vinculada al proyecto de mina para que su costo se acumule correctamente aunque el trabajo físico sea en Lima
-- **Estado inicial de la OT:** "Programada con recursos" o "Pendiente de recursos" según stock
-- **Badge en todas las vistas:** 🔵 `Retorno desde mina`
-- **Quién puede crear Fase 1:** Planner, Supervisor, Admin, Configurador
-- **Quién puede crear Fase 2 (OT):** Planner, Jefe de Taller, Admin, Configurador
-
----
+**Vinculación con el Backlog (Confiabilidad)**
+Una vez definidos los 3 ejes, el usuario selecciona el Activo/Equipo. En ese momento, el sistema busca en la base de datos y muestra:
+- *"Hay 3 hallazgos (Backlogs) pendientes para este equipo"*. 
+- El Planner selecciona qué Backlogs se atenderán en esta OT (lo cual pre-llena el alcance y repuestos).
+- Si el usuario decide **NO** vincular ningún Backlog (Ej. Emergencia en Segmento 02), el sistema le exigirá justificar el motivo para poder continuar.
 
 #### 3.2 Indicador de salud del proceso de creación de OTs
 
@@ -717,14 +660,11 @@ Visible en dos lugares: dentro del selector modal de origen (antes de que el usu
 OTs del período: 47 total
 
 [████████████████████████░░░░░░░░░░░░░░]
-🟢 Backlog: 38 (80.9%)  🟡 Correctivo: 7 (14.9%)  ⬜ Acondiciona.: 1 (2.1%)  🔵 Retorno: 1 (2.1%)
-
-Meta: ≥ 70% de OTs desde backlog
+Barra segmentada por Segmento de Cargo: 🔵 01-Preventivo (40%) | 🔴 02-Correctivo (35%) | 🟡 03-Garantía (5%) | ⬜ 04-Interno (10%) | 🟢 05-Rental (10%).
 ```
 
 **Alertas automáticas:**
-- Si `% desde backlog < 70%` → badge naranja junto a la barra: "Por debajo de meta — revisar disciplina de registro de hallazgos"
-- Si `% correctivo directo > 30%` → badge rojo: "Correctivos > 30% — revisar proceso de backlog"
+- Alerta automática: "Si el % de Segmento 02-Correctivo supera el 30%, se genera alerta por alto nivel de fallas imprevistas".
 
 **Propósito:** este indicador mide la madurez del proceso operativo, no solo registra actividad. Con el tiempo, el equipo puede ver si está mejorando la disciplina de registro formal de hallazgos antes de intervenir.
 
@@ -761,8 +701,8 @@ Sistema Funcional *                   Acarreo □  Perforación □  Otro: ___
 Componente                            N/S de Componente
 ¿Programado? □ Sí □ No               Turno: □ D □ N    Subsistema
 Supervisor *                          Causa
-Origen de la OT * (inmutable)
-  □ Desde Backlog  □ Correctivo directo  □ Acondicionamiento  □ Retorno desde mina
+Matriz de Servicio DBS * (Inmutable tras creación)
+Sede: _________ | Tipo de Servicio: _________ | Segmento: [01/02/03/04/05]
 Backlog(s) de origen (referencia inmutable, si aplica)
 Propietario del activo * (ZAHORY SAC / Cliente)
 Contrato / OS asociado (si activo es del cliente)
@@ -835,27 +775,13 @@ Campo de texto libre. Lo que se registra aquí al cerrar la OT **genera automát
 Cada OT muestra una card al inicio de su detalle que identifica su origen de forma clara e inmutable. El contenido varía según el origen:
 
 ```
-Origen 1 — Backlog:
-  🟢 Origen: BKL-2026-018
-  Hallazgo: "Falla hidráulica recurrente en cilindro de avance"
-  Reportado por: Miranda B. — 14/04/2026 — Turno Noche
-  Score original: 87/100
+La Card de Genealogía ahora muestra el "ADN del Servicio":
 
-Origen 2 — Correctivo directo:
-  🟡 Origen: Correctivo directo — Sin backlog previo
-  Motivo: "Emergencia — no hubo tiempo"
-  Creado por: García R. — 15/04/2026 09:23
+Segmento: [Ej. 02-Correctivo]
 
-Origen 3 — Acondicionamiento:
-  ⬜ Origen: Acondicionamiento — Activo propio ZAHORY SAC
-  Equipo incorporado: 10/04/2026
-  Checklist: 8/10 ítems completados
+Backlogs Vinculados: [BKL-2026-018, BKL-2026-019] o [Creado directamente sin Backlog: Emergencia Operativa].
 
-Origen 4 — Retorno desde mina:
-  🔵 Origen: Retorno desde mina — Pepas de Oro
-  Backlog vinculado: BKL-2026-015
-  Llegada al taller: 17/04/2026 14:30
-  Estado al salir de mina: Operativo con restricción
+Contrato/Proyecto: [Solo si el Segmento es 01, 02 o 05].
 ```
 
 ---
@@ -1597,8 +1523,6 @@ Solo tras estos cuatro cierres la OT pasa a estado "Costeada" y puede incluirse 
 
 **RN-14 — Cierre técnico con requisitos completos:** Una OT no puede cerrar técnicamente sin: trabajo ejecutado, responsable identificado, horas reales, materiales consumidos o declaración de no consumo, estado final del equipo.
 
-**RN-15 — OT de acondicionamiento sin ingreso facturable:** Las OTs de tipo Acondicionamiento sobre activos propios tienen Ingreso = 0. No se incluyen en remisiones al cliente.
-
 **RN-16 — N OTs por factura:** El sistema agrupa OTs por período y contrato para la remisión. No es 1 OT = 1 factura.
 
 **RN-17 — Repuestos requieren OT para consumirse:** Un repuesto no puede salir del stock sin estar vinculado a una OT activa. Los consumibles tienen lógica más flexible pero siempre imputados a proyecto o centro de costo.
@@ -1609,11 +1533,11 @@ Solo tras estos cuatro cierres la OT pasa a estado "Costeada" y puede incluirse 
 
 **RN-20 — Dictado de voz es complementario:** La transcripción va al campo de texto y el técnico puede editarla. El campo siempre acepta texto directo.
 
-**RN-21 — El origen de la OT es inmutable:** Una vez creada la OT, su origen (Backlog / Correctivo directo / Acondicionamiento / Retorno desde mina) no puede modificarse. Queda grabado en la auditoría y es visible en todas las vistas.
+**RN-21 — Matriz DBS Inmutable:** Una vez guardada la OT, los campos de Sede, Tipo de Servicio y Segmento no pueden modificarse sin anular la OT, ya que estos definen el enrutamiento contable.
 
-**RN-22 — Correctivo directo requiere justificación:** No se puede guardar una OT de origen "Correctivo directo" sin completar el campo "Motivo de no registrar backlog previo". Sin ese campo el formulario no avanza.
+**RN-22 — Bloqueo Financiero Segmento 04:** Toda OT con Segmento "04-Interno" fija automáticamente el monto facturable en $0.00 y no puede incluirse en Remisiones de Servicio a clientes.
 
-**RN-23 — Acondicionamiento no cierra sin checklist completo:** La OT de tipo Acondicionamiento no puede pasar a "Cerrada técnica" hasta que todos los ítems del checklist estén marcados como completados.
+**RN-23 — Obligatoriedad de Contrato:** Las OTs de Segmentos 01, 02 y 05 no pueden crearse si el equipo no está vinculado a un contrato comercial activo.
 
 **RN-24 — Los técnicos no crean OTs:** Los roles Técnico de Mina y Técnico de Taller no tienen permiso para crear OTs desde ningún origen. Crean backlogs y registros que alimentan las OTs.
 
