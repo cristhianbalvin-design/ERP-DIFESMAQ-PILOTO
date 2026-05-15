@@ -1,4 +1,4 @@
--- ZAHORY SAC ERP - DBS work order pivot
+-- DIFESMAQ ERP - DBS work order pivot
 -- Reemplaza el modelo de 4 origenes por Tipo de Trabajo x Cargo Financiero.
 
 alter table ot

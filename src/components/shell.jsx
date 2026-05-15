@@ -88,10 +88,11 @@ const SIDEBAR_ZONES = [
       {
         id: 'transporte', label: 'Transporte Comercial', emoji: '🚚',
         items: [
-          { id: 'dashboard-transporte', label: 'Dashboard Transporte', icon: 'dashboard' },
-          { id: 'transporte-viajes',    label: 'Monitor Viajes',       icon: 'mine'      },
-          { id: 'transporte-ruta',      label: 'Hoja de Ruta',         icon: 'arrow'     },
-          { id: 'transporte-tarifas',   label: 'Maestro Rutas',        icon: 'rates'     },
+          { id: 'dashboard-transporte',   label: 'Dashboard Transporte', icon: 'dashboard' },
+          { id: 'transporte-viajes',     label: 'Monitor Viajes',       icon: 'mine'      },
+          { id: 'transporte-ruta',       label: 'Hoja de Ruta',         icon: 'arrow'     },
+          { id: 'transporte-tarifas',    label: 'Maestro Rutas',        icon: 'rates'     },
+          { id: 'transporte-liquidacion',label: 'Liquidación',          icon: 'chart'     },
         ],
       },
       {
@@ -203,14 +204,14 @@ export const Sidebar = ({ current, onNav, role, onLogout }) => {
 
   const user = role === 'tecnico'
     ? { name: 'Miranda Barra, S.', role: 'Técnico de Mina',       initials: 'MB' }
-    : { name: 'A. Castro',          role: 'Gerente de Operaciones', initials: 'AC' };
+    : { name: 'A. Parado',          role: 'Gerente de Operaciones', initials: 'AC' };
 
   return (
     <aside className="sidebar">
 
       <div className="sidebar-logo">
         <div className="mark">Z</div>
-        <div className="wordmark">ZAHORY SAC<small>ERP Operativo Minero</small></div>
+        <div className="wordmark">DIFESMAQ<small>ERP Operativo Minero</small></div>
       </div>
 
       <div className="sidebar-scroll">
@@ -330,5 +331,5 @@ export const TopBar = ({ title, crumb, role, onRoleSwap }) => (
 );
 
 export const FooterBrand = () => (
-  <div className="footer-brand">Desarrollado por TIDEO Tech & Strategy · ZAHORY SAC Platform v2 · 2026</div>
+  <div className="footer-brand">Desarrollado por TIDEO Tech & Strategy · DIFESMAQ Platform v2 · 2026</div>
 );

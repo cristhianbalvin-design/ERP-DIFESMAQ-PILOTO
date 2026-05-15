@@ -16,7 +16,7 @@ const CONTRATOS_MOCK = [
     equipo: 'LHD-02',  equipoModelo: 'Sandvik LH517i',
     tarifa: 55.00, unidadMedida: 'Hora', minimo: 200, metaDMR: 85,
     inicio: '2026-01-01', vencimiento: '2026-12-31',
-    objeto: 'Alquiler de equipo cargador frontal subterráneo para labores de extracción en la unidad minera Animón. Incluye operación, mantenimiento preventivo y correctivo a cargo de ZAHORY SAC.',
+    objeto: 'Alquiler de equipo cargador frontal subterráneo para labores de extracción en la unidad minera Animón. Incluye operación, mantenimiento preventivo y correctivo a cargo de DIFESMAQ.',
     representanteCliente: 'Ing. Roberto Quispe Mamani',   representanteZahory: 'Ing. Carlos Mendoza Torres',
   },
   {
@@ -24,7 +24,7 @@ const CONTRATOS_MOCK = [
     equipo: 'JB-24',   equipoModelo: 'EPIROC Simba S7D',
     tarifa: 72.00, unidadMedida: 'Hora', minimo: 180, metaDMR: 88,
     inicio: '2026-02-01', vencimiento: '2026-09-30',
-    objeto: 'Alquiler de Jumbo de perforación para avances y preparación de labores en la U.M. Uchucchacua. Mantenimiento integral a cargo de ZAHORY SAC con técnico residente.',
+    objeto: 'Alquiler de Jumbo de perforación para avances y preparación de labores en la U.M. Uchucchacua. Mantenimiento integral a cargo de DIFESMAQ con técnico residente.',
     representanteCliente: 'Ing. Patricia Salinas Huerta',  representanteZahory: 'Ing. Carlos Mendoza Torres',
   },
   {
@@ -146,7 +146,7 @@ const ContratoPdfPreview = ({ contrato, onClose }) => {
           </div>
           <div style={{ flex:1 }}>
             <div style={{ fontFamily:'sans-serif', fontWeight:900, fontSize:18, color:'var(--navy)', letterSpacing:-.5 }}>
-              ZAHORY SAC
+              DIFESMAQ
             </div>
             <div style={{ fontFamily:'sans-serif', fontSize:11, color:'#666', marginTop:1 }}>
               Servicios de Mantenimiento y Alquiler de Equipos Mineros
@@ -170,7 +170,7 @@ const ContratoPdfPreview = ({ contrato, onClose }) => {
 
         {/* I — Partes Intervinientes */}
         <Section title="I. PARTES INTERVINIENTES">
-          <Row label="ARRENDADOR" val="ZAHORY SAC — RUC 20512345678"/>
+          <Row label="ARRENDADOR" val="DIFESMAQ — RUC 20512345678"/>
           <Row label="Representante Legal" val="Ing. Carlos Mendoza Torres — DNI 08765432"/>
           <Row label="ARRENDATARIO" val={contrato.cliente}/>
           <Row label="Representante" val={contrato.representanteCliente}/>
@@ -203,7 +203,7 @@ const ContratoPdfPreview = ({ contrato, onClose }) => {
         <Section title="IV. FIRMAS Y CONFORMIDAD">
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:40, marginTop:8 }}>
             {[
-              { rol:'POR EL ARRENDADOR', nombre:'ZAHORY SAC', rep:contrato.representanteZahory },
+              { rol:'POR EL ARRENDADOR', nombre:'DIFESMAQ', rep:contrato.representanteZahory },
               { rol:'POR EL ARRENDATARIO', nombre:contrato.cliente, rep:contrato.representanteCliente },
             ].map(f => (
               <div key={f.rol} style={{ textAlign:'center' }}>
@@ -223,7 +223,7 @@ const ContratoPdfPreview = ({ contrato, onClose }) => {
           fontSize:10.5, color:'#999',
           fontFamily:'sans-serif', display:'flex', justifyContent:'space-between',
         }}>
-          <span>Documento generado por ZAHORY SAC ERP · {new Date().toLocaleDateString('es-PE')}</span>
+          <span>Documento generado por DIFESMAQ ERP · {new Date().toLocaleDateString('es-PE')}</span>
           <span>Pág. 1 de 1</span>
         </div>
       </div>

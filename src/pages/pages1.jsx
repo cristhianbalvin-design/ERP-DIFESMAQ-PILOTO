@@ -22,13 +22,13 @@ export const LoginPage = ({ onLogin }) => {
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
           <div style={{ width: 52, height: 52, borderRadius: 12, background: "linear-gradient(135deg, #00BCD4, #0288A8)", display: "grid", placeItems: "center", color: "white", fontWeight: 800, fontSize: 22 }}>D</div>
           <div>
-            <div style={{ fontSize: 22, fontWeight: 800, color: "#1A2B4A", letterSpacing: 1.2 }}>ZAHORY SAC</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: "#1A2B4A", letterSpacing: 1.2 }}>DIFESMAQ</div>
             <div style={{ fontSize: 11, color: "#607D8B", letterSpacing: 0.4 }}>ERP Operativo Minero</div>
           </div>
         </div>
         <div className="field" style={{ marginBottom: 14 }}>
           <label>Email</label>
-          <input className="input input-lg" defaultValue="acastro@zahorysac.com"/>
+          <input className="input input-lg" defaultValue="aparado@difesmaq.com"/>
         </div>
         <div className="field" style={{ marginBottom: 20 }}>
           <label>Contraseña</label>
@@ -232,7 +232,7 @@ export const DashboardPage = ({ onNav, setCurrentOT }) => {
       <div className="page-header" style={{ alignItems:'flex-start', flexWrap:'wrap', gap:12 }}>
         <div style={{ flex:1 }}>
           <div style={{ fontSize:11, fontWeight:700, letterSpacing:.8, textTransform:'uppercase', color:'var(--text-muted)', marginBottom:2 }}>
-            Mayo 2026 · ZAHORY SAC ERP
+            Mayo 2026 · DIFESMAQ ERP
           </div>
           <h1 style={{ marginBottom:4 }}>Bienvenido, Administrador</h1>
           <div className="sub" style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
@@ -1194,4 +1194,3 @@ export const OTDetallePage = ({ onNav, code }) => {
     </div>
   );
 };
-

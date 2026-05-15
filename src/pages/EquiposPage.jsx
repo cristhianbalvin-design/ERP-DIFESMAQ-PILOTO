@@ -3,12 +3,12 @@ import { Icon, FooterBrand } from '../components/shell.jsx';
 import { ZAHORY_SAC_DATA } from '../data.js';
 
 const EQUIPOS_FULL = [
-  { cod: 'JB-DD311',   marca: 'SANDVIK DD311-40',  tipo: 'Jumbo',  flota: 'Jumbo frontonero', propietario: 'ZAHORY SAC', proyecto: 'Pepas de Oro',  contrato: 'CT-2026-PEP-003', ubicacion: 'Mina',             horometro: 3590.4, percusion: 2101.4, electrico: 3910.2, criticidad: 'A', estadoOp: 'Operativo',        serie: 'DD311-PE-2019-01', anio: 2019 },
-  { cod: 'JB-24',      marca: 'EPIROC SIMBA S7D',  tipo: 'Simba',  flota: 'Simba de cable',   propietario: 'ZAHORY SAC', proyecto: 'Buenaventura',  contrato: 'CT-2025-BUE-001', ubicacion: 'Mina',             horometro: 5420.1, percusion: 3150.0, electrico: 5100.0, criticidad: 'A', estadoOp: 'Operativo',        serie: 'S7D-BU-2018-02',   anio: 2018 },
-  { cod: 'JB-26',      marca: 'EPIROC SIMBA S7D',  tipo: 'Simba',  flota: 'Simba de cable',   propietario: 'ZAHORY SAC', proyecto: 'Antapaccay',    contrato: 'OS-2026-APC-011', ubicacion: 'Mina',             horometro: 1250.5, percusion:  840.2, electrico: 1200.0, criticidad: 'A', estadoOp: 'En mantenimiento', serie: 'S7D-AP-2022-01',   anio: 2022 },
+  { cod: 'JB-DD311',   marca: 'SANDVIK DD311-40',  tipo: 'Jumbo',  flota: 'Jumbo frontonero', propietario: 'DIFESMAQ', proyecto: 'Pepas de Oro',  contrato: 'CT-2026-PEP-003', ubicacion: 'Mina',             horometro: 3590.4, percusion: 2101.4, electrico: 3910.2, criticidad: 'A', estadoOp: 'Operativo',        serie: 'DD311-PE-2019-01', anio: 2019 },
+  { cod: 'JB-24',      marca: 'EPIROC SIMBA S7D',  tipo: 'Simba',  flota: 'Simba de cable',   propietario: 'DIFESMAQ', proyecto: 'Buenaventura',  contrato: 'CT-2025-BUE-001', ubicacion: 'Mina',             horometro: 5420.1, percusion: 3150.0, electrico: 5100.0, criticidad: 'A', estadoOp: 'Operativo',        serie: 'S7D-BU-2018-02',   anio: 2018 },
+  { cod: 'JB-26',      marca: 'EPIROC SIMBA S7D',  tipo: 'Simba',  flota: 'Simba de cable',   propietario: 'DIFESMAQ', proyecto: 'Antapaccay',    contrato: 'OS-2026-APC-011', ubicacion: 'Mina',             horometro: 1250.5, percusion:  840.2, electrico: 1200.0, criticidad: 'A', estadoOp: 'En mantenimiento', serie: 'S7D-AP-2022-01',   anio: 2022 },
   { cod: 'SC-701',     marca: 'SANDVIK',            tipo: 'Scoop',  flota: 'Scoop-LHD',        propietario: 'Cliente',  proyecto: 'Buenaventura',  contrato: 'CT-2025-BUE-001', ubicacion: 'Mina',             horometro: 8900.0, percusion:    0,   electrico:    0,   criticidad: 'B', estadoOp: 'En mantenimiento', serie: 'SK-BU-2016-01',    anio: 2016 },
   { cod: 'EQ-TALL-01', marca: 'CATERPILLAR R1600', tipo: 'Scoop',  flota: 'Scoop-LHD',        propietario: 'Cliente',  proyecto: 'Uchucchacua',   contrato: 'OS-2025-VOL-008', ubicacion: 'Taller Carapongo', horometro:12050.8, percusion:    0,   electrico:    0,   criticidad: 'C', estadoOp: 'En taller',        serie: 'R16-UC-2014-01',   anio: 2014 },
-  { cod: 'JB-NEW-01',  marca: 'EPIROC BOOMER S2',  tipo: 'Jumbo',  flota: 'Jumbo frontonero', propietario: 'ZAHORY SAC', proyecto: '—',              contrato: '—',               ubicacion: 'Taller Carapongo', horometro:    0,   percusion:    0,   electrico:    0,   criticidad: 'A', estadoOp: 'Acondicionamiento',serie: 'BS2-LI-2026-01',  anio: 2026 },
+  { cod: 'JB-NEW-01',  marca: 'EPIROC BOOMER S2',  tipo: 'Jumbo',  flota: 'Jumbo frontonero', propietario: 'DIFESMAQ', proyecto: '—',              contrato: '—',               ubicacion: 'Taller Carapongo', horometro:    0,   percusion:    0,   electrico:    0,   criticidad: 'A', estadoOp: 'Acondicionamiento',serie: 'BS2-LI-2026-01',  anio: 2026 },
 ];
 
 const HISTORIAL = {
@@ -32,8 +32,8 @@ export const EquiposPage = () => {
   const [selected, setSelected] = useState(EQUIPOS_FULL[0]);
   const [detailTab, setDetailTab] = useState('ficha');
 
-  const propBadge = (p) => p === 'ZAHORY SAC'
-    ? <span className="badge navy"><span className="dot"/>ZAHORY SAC</span>
+  const propBadge = (p) => p === 'DIFESMAQ'
+    ? <span className="badge navy"><span className="dot"/>DIFESMAQ</span>
     : <span className="badge cyan"><span className="dot"/>Cliente</span>;
 
   return (
@@ -51,7 +51,7 @@ export const EquiposPage = () => {
         <select className="select"><option>Proyecto: Todos</option></select>
         <select className="select">
           <option>Propietario: Todos</option>
-          <option>ZAHORY SAC</option>
+          <option>DIFESMAQ</option>
           <option>Cliente</option>
         </select>
         <select className="select"><option>Estado: Todos</option></select>
@@ -153,7 +153,7 @@ export const EquiposPage = () => {
                 {selected.estadoOp === 'Acondicionamiento' && (
                   <div style={{ marginTop: 16, padding: '10px 14px', background: 'var(--cyan-soft)', borderRadius: 6, fontSize: 12, color: 'var(--navy)', border: '1px solid var(--cyan)' }}>
                     <strong>OT de Acondicionamiento activa:</strong> OT-2026-054 · Ingreso facturable = $0.<br/>
-                    El costo acumulado es la inversión de puesta en operación del activo propio ZAHORY SAC.
+                    El costo acumulado es la inversión de puesta en operación del activo propio DIFESMAQ.
                   </div>
                 )}
               </div>

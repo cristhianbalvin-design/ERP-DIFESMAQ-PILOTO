@@ -1,5 +1,5 @@
 export const TIPO_TRABAJO_VALUES = ['Preventivo_PM', 'Correctivo', 'Acondicionamiento', 'Overhaul'];
-export const TIPO_CARGO_VALUES   = ['Cliente_Contrato', 'Interno_Zahory', 'Garantia_Fabrica', 'Reclamo_Rework'];
+export const TIPO_CARGO_VALUES   = ['Cliente_Contrato', 'Interno_Zahory', 'Garantia_Fabrica', 'Reclamo_Rework', 'Garantia_Zahory'];
 
 export const LINEA_NEGOCIO_VALUES = [
   'flota_alquileres', 'maestranza_fab', 'transporte_comercial',
@@ -33,7 +33,7 @@ export const OT_COMBINATION_GUARDS = {
     'Un Overhaul es una reconstruccion mayor planificada, no un Retrabajo. Verifique su seleccion.',
 };
 
-export const NON_BILLABLE_CARGOS = ['Interno_Zahory', 'Garantia_Fabrica', 'Reclamo_Rework'];
+export const NON_BILLABLE_CARGOS = ['Interno_Zahory', 'Garantia_Fabrica', 'Reclamo_Rework', 'Garantia_Zahory'];
 
 export const getBlockedCargoReason = (tipoTrabajo, tipoCargo) =>
   OT_COMBINATION_GUARDS[`${tipoTrabajo}:${tipoCargo}`] || '';

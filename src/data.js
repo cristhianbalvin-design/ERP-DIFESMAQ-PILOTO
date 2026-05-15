@@ -1,4 +1,4 @@
-// ZAHORY SAC mock data
+// DIFESMAQ mock data
 export const ZAHORY_SAC_DATA = {
   fx: 3.745,
   projects: ["Todos", "Pepas de Oro", "Buenaventura", "Antapaccay", "Uchucchacua"],
@@ -50,12 +50,12 @@ export const ZAHORY_SAC_DATA = {
 
   // Panel E — Estado actual de activos
   activosEstado: [
-    { cod: 'JB-DD311', marca: 'SANDVIK DD311-40', tipo: 'Jumbo', proyecto: 'Pepas de Oro',  propietario: 'ZAHORY SAC', ubicacion: 'Mina',            estadoOp: 'Operativo',     ultimaOT: 'OT-2026-047', proximoMantto: 'PM en 85 hrs',    dmr: 97.44, dmp: 97.92 },
-    { cod: 'JB-24',    marca: 'EPIROC SIMBA S7D', tipo: 'Simba', proyecto: 'Buenaventura',  propietario: 'ZAHORY SAC', ubicacion: 'Mina',            estadoOp: 'Operativo',     ultimaOT: 'OT-2026-050', proximoMantto: 'PM en 120 hrs',   dmr: 98.10, dmp: 97.92 },
-    { cod: 'JB-26',    marca: 'EPIROC SIMBA S7D', tipo: 'Simba', proyecto: 'Antapaccay',    propietario: 'ZAHORY SAC', ubicacion: 'Mina',            estadoOp: 'Operativo',     ultimaOT: 'OT-2026-048', proximoMantto: 'PM en 210 hrs',   dmr: 97.95, dmp: 98.00 },
+    { cod: 'JB-DD311', marca: 'SANDVIK DD311-40', tipo: 'Jumbo', proyecto: 'Pepas de Oro',  propietario: 'DIFESMAQ', ubicacion: 'Mina',            estadoOp: 'Operativo',     ultimaOT: 'OT-2026-047', proximoMantto: 'PM en 85 hrs',    dmr: 97.44, dmp: 97.92 },
+    { cod: 'JB-24',    marca: 'EPIROC SIMBA S7D', tipo: 'Simba', proyecto: 'Buenaventura',  propietario: 'DIFESMAQ', ubicacion: 'Mina',            estadoOp: 'Operativo',     ultimaOT: 'OT-2026-050', proximoMantto: 'PM en 120 hrs',   dmr: 98.10, dmp: 97.92 },
+    { cod: 'JB-26',    marca: 'EPIROC SIMBA S7D', tipo: 'Simba', proyecto: 'Antapaccay',    propietario: 'DIFESMAQ', ubicacion: 'Mina',            estadoOp: 'Operativo',     ultimaOT: 'OT-2026-048', proximoMantto: 'PM en 210 hrs',   dmr: 97.95, dmp: 98.00 },
     { cod: 'SC-701',   marca: 'SANDVIK',          tipo: 'Scoop', proyecto: 'Buenaventura',  propietario: 'Cliente',  ubicacion: 'Mina',            estadoOp: 'En mantenimiento', ultimaOT: 'OT-2026-049', proximoMantto: '—',               dmr: 96.50, dmp: 97.92 },
     { cod: 'EQ-TALL-01', marca: 'CATERPILLAR R1600', tipo: 'Scoop', proyecto: 'Uchucchacua', propietario: 'Cliente', ubicacion: 'Taller Carapongo', estadoOp: 'En taller',     ultimaOT: 'OT-2026-051', proximoMantto: '—',               dmr: null,  dmp: null },
-    { cod: 'JB-NEW-01',  marca: 'EPIROC BOOMER S2', tipo: 'Jumbo', proyecto: '—',            propietario: 'ZAHORY SAC', ubicacion: 'Taller Carapongo', estadoOp: 'Acondicionamiento', ultimaOT: 'OT-2026-054', proximoMantto: 'Listo en ~15 días', dmr: null, dmp: null },
+    { cod: 'JB-NEW-01',  marca: 'EPIROC BOOMER S2', tipo: 'Jumbo', proyecto: '—',            propietario: 'DIFESMAQ', ubicacion: 'Taller Carapongo', estadoOp: 'Acondicionamiento', ultimaOT: 'OT-2026-054', proximoMantto: 'Listo en ~15 días', dmr: null, dmp: null },
   ],
   equipos: [
     { cod: "JB-DD311", marca: "SANDVIK DD311-40", proyecto: "Pepas de Oro", ctx: "Mina" },
@@ -226,6 +226,200 @@ export const ZAHORY_SAC_DATA = {
       observaciones: 'Sin observaciones',
     },
   ],
+  ordenes_fabricacion: [
+    {
+      id: 'OF-2026-001',
+      codigo: 'OF-2026-001',
+      cliente_id: 'CLI-003',
+      cliente_nombre: 'AESA Infraestructura y Minería',
+      os_id: 'OS-MAE-001',
+      descripcion: 'Fabricación de cangilón reforzado para LHD R1600H',
+      tipo_origen: 'especificaciones_cliente',
+      materiales_del_cliente: false,
+      estado: 'en_ejecucion',
+      fecha_apertura: '2026-05-02',
+      fecha_compromiso: '2026-05-20',
+      jefe_taller: 'Roberto Quispe',
+      supervisor_qc: 'Miguel Huanca',
+      precio_os: 12400,
+      anticipo: 3720,
+      moneda: 'USD',
+      tipo_qc: 'QC-EST',
+      componente: null,
+      bom_planificado: [
+        { codigo: 'MAT-001', descripcion: 'Plancha AR400 1/2"', cantidad: 4, unidad: 'und', costo_unit: 380, es_material_cliente: false },
+        { codigo: 'MAT-002', descripcion: 'Electrodo supercito 1/8"', cantidad: 12, unidad: 'kg', costo_unit: 18, es_material_cliente: false },
+      ],
+      bom_real: [
+        { codigo: 'MAT-001', descripcion: 'Plancha AR400 1/2"', cantidad: 4, unidad: 'und', costo_unit: 380, es_material_cliente: false },
+        { codigo: 'MAT-002', descripcion: 'Electrodo supercito 1/8"', cantidad: 14, unidad: 'kg', costo_unit: 18, es_material_cliente: false, motivo_desviacion: 'Mayor área de refuerzo requerida en esquinas' },
+        { codigo: 'MAT-003', descripcion: 'Disco de desbaste 7"', cantidad: 6, unidad: 'und', costo_unit: 8, es_material_cliente: false, motivo_desviacion: 'No estaba en BOM inicial — requerido en acabado' },
+      ],
+      operaciones: [
+        { id: 'OP-001', descripcion: 'Trazado y corte', tecnico: 'Luis Mamani', horas_est: 8, horas_real: 9, estado: 'aprobada', aprobado_por: 'Roberto Quispe', tiempo_estandar_id: 'TE-001', horas_estandar: 8 },
+        { id: 'OP-002', descripcion: 'Armado y soldadura', tecnico: 'Luis Mamani', horas_est: 16, horas_real: 14, estado: 'en_progreso', aprobado_por: null, tiempo_estandar_id: 'TE-003', horas_estandar: 6 },
+        { id: 'OP-003', descripcion: 'Acabado y pintura', tecnico: 'Pedro Ccoa', horas_est: 6, horas_real: 0, estado: 'pendiente', aprobado_por: null, tiempo_estandar_id: 'TE-006', horas_estandar: 8 },
+      ],
+      historial_qc: [],
+      tipo_entrega: null,
+      ot_instalacion_id: null,
+      otas_vinculadas: [],
+      garantia: null,
+    },
+    {
+      id: 'OF-2026-002',
+      codigo: 'OF-2026-002',
+      cliente_id: 'CLI-001',
+      cliente_nombre: 'Doe Run Perú',
+      os_id: 'OS-MAE-002',
+      descripcion: 'Reparación de cilindro de dirección LHD R1300G',
+      tipo_origen: 'ingenieria_zahory',
+      materiales_del_cliente: false,
+      estado: 'en_qc',
+      fecha_apertura: '2026-04-28',
+      fecha_compromiso: '2026-05-12',
+      jefe_taller: 'Roberto Quispe',
+      supervisor_qc: 'Miguel Huanca',
+      precio_os: 4800,
+      anticipo: 0,
+      moneda: 'USD',
+      tipo_qc: 'QC-HID',
+      componente: {
+        numero_serie: 'CIL-DIR-R1300G-001',
+        descripcion_componente: 'Cilindro de dirección lado derecho',
+        modelo_equipo_compatible: 'LHD R1300G / R1600G',
+        es_componente_nuevo: false,
+        ingresado_por_cliente: true,
+      },
+      bom_planificado: [
+        { codigo: 'MAT-010', descripcion: 'Sello hidráulico kit completo', cantidad: 1, unidad: 'kit', costo_unit: 320, es_material_cliente: false },
+        { codigo: 'MAT-011', descripcion: 'Cromo duro (servicio tercero)', cantidad: 1, unidad: 'serv', costo_unit: 650, es_material_cliente: false },
+      ],
+      bom_real: [
+        { codigo: 'MAT-010', descripcion: 'Sello hidráulico kit completo', cantidad: 1, unidad: 'kit', costo_unit: 320, es_material_cliente: false },
+        { codigo: 'MAT-011', descripcion: 'Cromo duro (servicio tercero)', cantidad: 1, unidad: 'serv', costo_unit: 650, es_material_cliente: false },
+      ],
+      operaciones: [
+        { id: 'OP-001', descripcion: 'Desmontaje y diagnóstico', tecnico: 'Pedro Ccoa', horas_est: 4, horas_real: 4, estado: 'aprobada', aprobado_por: 'Roberto Quispe', tiempo_estandar_id: 'TE-004', horas_estandar: 4 },
+        { id: 'OP-002', descripcion: 'Rectificado y cromado', tecnico: 'Servicio tercero', horas_est: 0, horas_real: 0, estado: 'aprobada', aprobado_por: 'Roberto Quispe', tiempo_estandar_id: null, horas_estandar: null },
+        { id: 'OP-003', descripcion: 'Ensamble y prueba hidráulica', tecnico: 'Pedro Ccoa', horas_est: 6, horas_real: 5, estado: 'aprobada', aprobado_por: 'Roberto Quispe', tiempo_estandar_id: 'TE-005', horas_estandar: 6 },
+      ],
+      historial_qc: [
+        {
+          fecha: '2026-05-11',
+          supervisor: 'Miguel Huanca',
+          resultado: 'observada',
+          motivo: 'Fuga leve detectada en prueba de presión a 250 bar',
+          items_observados: ['Ensamble de sello superior'],
+        },
+      ],
+      tipo_entrega: 'entrega_fisica',
+      ot_instalacion_id: null,
+      otas_vinculadas: [],
+      garantia: null,
+    },
+  ],
+
+  propuestas_ingenieria: [
+    {
+      id: 'ING-2026-001',
+      cliente_id: 'CLI-004',
+      cliente_nombre: "Corporación Makario's SAC",
+      descripcion_problema: 'Brazo de boom con fisuras en zona de soldadura',
+      diagnostico: 'Fatiga por ciclos repetitivos. Requiere refuerzo estructural y cambio de geometría en unión.',
+      plano_generado: true,
+      bom_preliminar: [
+        { descripcion: 'Plancha A36 3/8"', cantidad: 2, unidad: 'und' },
+        { descripcion: 'Soldadura bajo hidrógeno', cantidad: 5, unidad: 'kg' },
+      ],
+      responsable_ingenieria: 'Roberto Quispe',
+      fecha: '2026-05-08',
+      estado: 'aprobada_por_cliente',
+      of_generada_id: null,
+    },
+  ],
+
+  tiempos_estandar: [
+    { id: 'TE-001', operacion: 'Trazado y corte plancha hasta 1"',        horas: 8,  unidad: 'por pieza' },
+    { id: 'TE-002', operacion: 'Soldadura estructural (por metro lineal)', horas: 2,  unidad: 'por metro' },
+    { id: 'TE-003', operacion: 'Armado y punteo de estructura',            horas: 6,  unidad: 'por pieza' },
+    { id: 'TE-004', operacion: 'Desmontaje y diagnóstico hidráulico',      horas: 4,  unidad: 'por cilindro' },
+    { id: 'TE-005', operacion: 'Ensamble y prueba hidráulica',             horas: 6,  unidad: 'por cilindro' },
+    { id: 'TE-006', operacion: 'Acabado y pintura (granallado + epóxico)', horas: 8,  unidad: 'por pieza' },
+    { id: 'TE-007', operacion: 'Mecanizado en torno (desbaste)',           horas: 3,  unidad: 'por hora máquina' },
+    { id: 'TE-008', operacion: 'Mecanizado en torno (acabado)',            horas: 2,  unidad: 'por hora máquina' },
+    { id: 'TE-009', operacion: 'Inspección dimensional',                   horas: 1,  unidad: 'por pieza' },
+    { id: 'TE-010', operacion: 'Prueba de presión hidráulica',             horas: 2,  unidad: 'por circuito' },
+  ],
+
+  criterios_qc: [
+    {
+      id: 'QC-HID',
+      tipo_trabajo: 'Reparación hidráulica',
+      criterios: [
+        { id: 'C001', descripcion: 'Prueba de presión estática',     valor_minimo: 280, unidad: 'bar',        duracion_min: 30,   metodo: 'Manómetro calibrado' },
+        { id: 'C002', descripcion: 'Prueba de presión dinámica',     valor_minimo: 250, unidad: 'bar',        duracion_min: 10,   metodo: 'Banco hidráulico' },
+        { id: 'C003', descripcion: 'Verificación de fugas visuales', valor_minimo: 0,   unidad: 'gotas/min',  duracion_min: 15,   metodo: 'Inspección visual' },
+        { id: 'C004', descripcion: 'Carrera de vástago',             valor_minimo: null, unidad: 'mm',        duracion_min: null, metodo: 'Según plano del fabricante' },
+      ],
+    },
+    {
+      id: 'QC-EST',
+      tipo_trabajo: 'Fabricación estructural',
+      criterios: [
+        { id: 'C010', descripcion: 'Inspección visual de cordones de soldadura', valor_minimo: null, unidad: null,  duracion_min: null, metodo: 'AWS D1.1' },
+        { id: 'C011', descripcion: 'Verificación dimensional general',           valor_minimo: null, unidad: 'mm',  duracion_min: null, metodo: 'Cinta métrica / pie de rey' },
+        { id: 'C012', descripcion: 'Prueba de impacto (si aplica)',              valor_minimo: null, unidad: 'J',   duracion_min: null, metodo: 'Charpy según norma' },
+        { id: 'C013', descripcion: 'Verificación de pintura (espesor)',          valor_minimo: 250,  unidad: 'µm',  duracion_min: null, metodo: 'Medidor de espesor magnético' },
+      ],
+    },
+    {
+      id: 'QC-MEC',
+      tipo_trabajo: 'Mecanizado',
+      criterios: [
+        { id: 'C020', descripcion: 'Diámetro exterior',     valor_minimo: null, unidad: 'mm',  duracion_min: null, metodo: 'Micrómetro — tolerancia según plano' },
+        { id: 'C021', descripcion: 'Rugosidad superficial', valor_minimo: null, unidad: 'Ra',  duracion_min: null, metodo: 'Rugosímetro o comparador visual' },
+        { id: 'C022', descripcion: 'Dureza superficial',    valor_minimo: 58,   unidad: 'HRC', duracion_min: null, metodo: 'Durómetro Rockwell' },
+      ],
+    },
+  ],
+
+  pasaportes_componentes: [
+    {
+      numero_serie: 'CIL-DIR-R1300G-001',
+      descripcion: 'Cilindro de dirección lado derecho',
+      modelo_compatible: 'LHD R1300G / R1600G',
+      cliente_propietario: 'Doe Run Perú',
+      historial: [
+        {
+          of_id: 'OF-2025-014',
+          fecha: '2025-08-10',
+          tipo: 'Reparación',
+          trabajo: 'Cambio de sellos hidráulicos y rectificado de vástago',
+          tecnico: 'Pedro Ccoa',
+          qc_aprobado_por: 'Miguel Huanca',
+          materiales_usados: ['Sello hidráulico kit', 'Cromo duro (servicio)'],
+        },
+      ],
+    },
+  ],
+
+  reclamos_garantia: [
+    {
+      id: 'REC-2026-001',
+      of_origen_id: 'OF-2025-014',
+      cliente_id: 'CLI-001',
+      cliente_nombre: 'Doe Run Perú',
+      numero_serie: 'CIL-DIR-R1300G-001',
+      fecha_reclamo: '2026-03-10',
+      descripcion_falla: 'Fuga de aceite por sello superior a los 45 días de operación',
+      estado: 'of_garantia_generada',
+      of_garantia_id: 'OF-2026-003',
+      procede_garantia: true,
+      motivo_rechazo: null,
+    },
+  ],
+
   backlog: [
     { bkl: 'BKL-2026-090', fecha: '20/04/2026', eq: 'SC-701',   sistema: 'Motor',        hallazgo: 'SOS Feedback critico: presencia de limalla y silicio elevado en aceite motor', prioridad: 'Emergencia', score: 17, dias: 0, estado: 'Listo para OT', cicloVida: 'Listo para OT', requiereRetorno: true, fuente: 'SOS Feedback (Analisis de fluidos)', nivelAlertaSos: 'Critico', reporteLaboratorio: 'sos-sc701-2026-04.pdf' },
     { bkl: 'BKL-2026-089', fecha: '20/04/2026', eq: 'JB-DD311', sistema: 'Hidráulico',   hallazgo: 'Fuga de aceite en manguera de percusión de brazo derecho',     prioridad: 'Emergencia',  score: 95, dias: 0, estado: 'Pendiente',        cicloVida: 'Nuevo',              requiereRetorno: true,  fuente: 'Reporte diario' },
@@ -235,5 +429,98 @@ export const ZAHORY_SAC_DATA = {
     { bkl: 'BKL-2026-079', fecha: '12/04/2026', eq: 'JB-DD311', sistema: 'Transmisión',  hallazgo: 'Ruido anómalo al cambiar a 2da marcha',                        prioridad: 'Urgente',     score: 75, dias: 8, estado: 'Listo para OT',    cicloVida: 'Listo para OT',      requiereRetorno: false, fuente: 'Parte taller' },
     { bkl: 'BKL-2026-076', fecha: '10/04/2026', eq: 'SC-701',   sistema: 'Hidráulico',   hallazgo: 'Manguera de dirección con micro-fisuras visibles',              prioridad: 'Urgente',     score: 68, dias: 13, estado: 'En análisis',     cicloVida: 'En análisis',        requiereRetorno: true,  fuente: 'Inspección' },
     { bkl: 'BKL-2026-073', fecha: '08/04/2026', eq: 'JB-26',    sistema: 'Eléctrico',    hallazgo: 'Tablero de control presenta falla intermitente en display',    prioridad: 'Normal',      score: 40, dias: 15, estado: 'Pendiente',       cicloVida: 'Nuevo',              requiereRetorno: false, fuente: 'Reporte diario' },
+  ],
+
+  // ── Módulo Transporte Comercial ───────────────────────────────────────────
+  unidades_transporte: [
+    {
+      id: 'UNI-001', placa: 'ABC-123', tipo: 'camioneta_4x4',
+      marca: 'Toyota', modelo: 'Hilux', año: 2022,
+      origen: 'propia', conductor_default: 'Juan Pérez',
+      estado: 'disponible', km_actual: 48320, capacidad_carga_kg: 1000,
+    },
+    {
+      id: 'UNI-002', placa: 'XYZ-456', tipo: 'camion_plano',
+      marca: 'Volvo', modelo: 'FH', año: 2020,
+      origen: 'propia', conductor_default: 'Carlos Ramos',
+      estado: 'en_ruta', km_actual: 128400, capacidad_carga_kg: 20000,
+    },
+    {
+      id: 'UNI-003', placa: null, tipo: 'camion_grua',
+      marca: 'Proveedor externo', modelo: null, año: null,
+      origen: 'tercerizada', proveedor_id: 'PROV-TRANS-001',
+      estado: 'disponible', km_actual: null, capacidad_carga_kg: 35000,
+    },
+  ],
+
+  rutas_maestro: [
+    {
+      id: 'RUT-001', nombre: 'Lima → La Oroya',
+      origen: 'Taller Zahory — Ate, Lima',
+      destino: 'Unidad Minera La Oroya — Junín',
+      km_estandar: 185, tiempo_estimado_hrs: 4.5,
+      tipo_carga_habitual: 'Equipo LHD',
+      tarifas: [
+        { tipo_unidad: 'camion_plano', tarifa_por_km: 4.5, moneda: 'USD' },
+        { tipo_unidad: 'camion_grua',  tarifa_por_km: 6.0, moneda: 'USD' },
+      ],
+    },
+    {
+      id: 'RUT-002', nombre: 'Lima → Cerro de Pasco',
+      origen: 'Taller Zahory — Ate, Lima',
+      destino: 'Unidad Minera Cerro de Pasco',
+      km_estandar: 320, tiempo_estimado_hrs: 7,
+      tipo_carga_habitual: 'Repuestos y componentes',
+      tarifas: [
+        { tipo_unidad: 'camioneta_4x4', tarifa_por_km: 2.8, moneda: 'USD' },
+        { tipo_unidad: 'camion_plano',  tarifa_por_km: 4.8, moneda: 'USD' },
+      ],
+    },
+  ],
+
+  ordenes_viaje: [
+    {
+      id: 'OV-2026-001', tipo_operacion: 'propio', estado: 'completada',
+      ruta_id: 'RUT-001',
+      origen: 'Taller Zahory — Ate, Lima',
+      destino: 'Unidad Minera La Oroya — Junín',
+      fecha_programada: '2026-05-10',
+      carga_descripcion: 'LHD R1600G-001 — traslado post-mantenimiento',
+      unidad_id: 'UNI-002', conductor: 'Carlos Ramos', unidad_origen: 'propia',
+      vinculo_tipo: 'contrato', vinculo_id: 'CTR-001',
+      km_planificado: 185, km_real: 191,
+      hora_salida: '06:00', hora_llegada: '10:45',
+      combustible_gal: 28, costo_combustible: 140, costo_peajes: 18,
+      costo_conductor: 0, costo_tercero: 0, costo_total: 158,
+      incidentes: [],
+    },
+    {
+      id: 'OV-2026-002', tipo_operacion: 'comercial', estado: 'en_ruta',
+      ruta_id: 'RUT-002',
+      origen: 'Taller Zahory — Ate, Lima',
+      destino: 'Cerro de Pasco',
+      fecha_programada: '2026-05-15',
+      carga_descripcion: 'Repuestos para mantenimiento preventivo',
+      unidad_id: 'UNI-003', conductor: 'Conductor proveedor', unidad_origen: 'tercerizada',
+      proveedor_id: 'PROV-TRANS-001',
+      cliente_id: 'CLI-002', contrato_id: 'CTR-TRANS-001',
+      tipo_tarifa: 'por_km', tarifa_km: 4.8,
+      km_planificado: 320, km_real: null,
+      hora_salida: '05:30', hora_llegada: null,
+      combustible_gal: null, costo_combustible: 0, costo_peajes: 0,
+      costo_conductor: 0, costo_tercero: 1536, costo_total: null,
+      ingreso_estimado: 1536,
+      incidentes: [],
+    },
+  ],
+
+  contratos_transporte: [
+    {
+      id: 'CTR-TRANS-001', cliente_id: 'CLI-002', cliente_nombre: 'Kallpamina',
+      tipo_tarifa: 'por_km', tarifa_km: 4.8, moneda: 'USD',
+      tipo_unidad_contratada: 'camion_plano',
+      fecha_inicio: '2026-03-01', fecha_fin: '2026-08-31',
+      estado: 'activo',
+    },
   ],
 };

@@ -10,6 +10,8 @@ import { ConfiguracionPage } from './pages/ConfiguracionPage.jsx';
 import { ClientesContratosPage } from './pages/ClientesContratosPage.jsx';
 import { CrearOTPage } from './pages/CrearOTPage.jsx';
 import { FlotaRentalPage, ContratosRentalPage, DespachosRentalPage, LiquidacionRentalPage, DashboardRentalPage } from './pages/AlquileresPages.jsx';
+import { DashboardMaestranza, BandejaMaestranza, CrearOFPage, DetalleOFPage, EstructurasBOM, ControlDePiso } from './pages/MaestranzaPages.jsx';
+import { DashboardTransporte, MonitorViajes, CrearOVPage, HojaDeRuta, MaestroRutas, LiquidacionTransporte } from './pages/TransportePages.jsx';
 
 const TWEAKS_DEFAULTS = {
   "accentColor": "#00BCD4",
@@ -48,11 +50,15 @@ const PAGE_LABELS = {
   // ── Confiabilidad ──────────────────────────────────────────────────────
   "sos-telemetria":     { title: "SOS y Telemetría",      crumb: "Confiabilidad" },
   // ── Transporte Comercial ───────────────────────────────────────────────
-  "transporte-viajes":  { title: "Monitor de Viajes",     crumb: "Transporte Comercial" },
-  "transporte-ruta":    { title: "Ejecución en Ruta",     crumb: "Transporte Comercial" },
-  "transporte-tarifas": { title: "Maestro de Rutas",      crumb: "Transporte Comercial" },
+  "transporte-viajes":    { title: "Monitor de Viajes",       crumb: "Transporte Comercial" },
+  "transporte-crear-ov":  { title: "Nueva Orden de Viaje",    crumb: "Transporte Comercial › OVs" },
+  "transporte-ruta":      { title: "Hoja de Ruta",            crumb: "Transporte Comercial" },
+  "transporte-tarifas":   { title: "Maestro de Rutas",        crumb: "Transporte Comercial" },
+  "transporte-liquidacion": { title: "Liquidación Transporte", crumb: "Transporte Comercial" },
   // ── Maestranza ─────────────────────────────────────────────────────────
   "maestranza-of":             { title: "Órdenes de Fabricación",  crumb: "Maestranza y Fab." },
+  "maestranza-crear-of":       { title: "Nueva Orden de Fab.",     crumb: "Maestranza y Fab." },
+  "maestranza-detalle-of":     { title: "Detalle de OF",           crumb: "Maestranza y Fab." },
   "maestranza-bom":            { title: "Estructuras y BOM",       crumb: "Maestranza y Fab." },
   "maestranza-piso":           { title: "Control de Piso",         crumb: "Maestranza y Fab." },
   // Línea: Flota y Alquileres
@@ -112,6 +118,8 @@ export const App = () => {
   const [role, setRole] = useState(() => localStorage.getItem("zahory_sac_role") || "login");
   const [current, setCurrent] = useState(() => localStorage.getItem("zahory_sac_page") || "dashboard");
   const [currentOT, setCurrentOT] = useState("OT-2026-050");
+  const [currentOF, setCurrentOF] = useState("OF-2026-001");
+  const [currentOV, setCurrentOV] = useState("OV-2026-001");
   const [tweaks, setTweaks] = useState(TWEAKS_DEFAULTS);
   const [tweaksOpen, setTweaksOpen] = useState(false);
 
@@ -171,11 +179,23 @@ export const App = () => {
       case "equipos": content = <EquiposPage/>; break;
       case "proyectos": content = <ProyectosTarifasPage/>; break;
       case "config":            content = <ConfiguracionPage/>; break;
-      case "dashboard-rental":  content = <DashboardRentalPage onNav={setCurrent}/>; break;
-      case "flota":             content = <FlotaRentalPage onNav={setCurrent}/>; break;
-      case "contratos-rental":  content = <ContratosRentalPage/>; break;
-      case "checkout":          content = <DespachosRentalPage onNav={setCurrent}/>; break;
-      case "liquidacion":       content = <LiquidacionRentalPage onNav={setCurrent} setCurrentOT={setCurrentOT}/>; break;
+      case "dashboard-rental":      content = <DashboardRentalPage onNav={setCurrent}/>; break;
+      case "flota":                 content = <FlotaRentalPage onNav={setCurrent}/>; break;
+      case "contratos-rental":      content = <ContratosRentalPage/>; break;
+      case "checkout":              content = <DespachosRentalPage onNav={setCurrent}/>; break;
+      case "liquidacion":           content = <LiquidacionRentalPage onNav={setCurrent} setCurrentOT={setCurrentOT}/>; break;
+      case "dashboard-maestranza":  content = <DashboardMaestranza onNav={setCurrent} setCurrentOF={setCurrentOF}/>; break;
+      case "maestranza-of":         content = <BandejaMaestranza onNav={setCurrent} setCurrentOF={setCurrentOF}/>; break;
+      case "maestranza-crear-of":   content = <CrearOFPage onNav={setCurrent}/>; break;
+      case "maestranza-detalle-of": content = <DetalleOFPage onNav={setCurrent} ofId={currentOF}/>; break;
+      case "maestranza-bom":        content = <EstructurasBOM onNav={setCurrent}/>; break;
+      case "maestranza-piso":           content = <ControlDePiso onNav={setCurrent} setCurrentOF={setCurrentOF}/>; break;
+      case "dashboard-transporte":      content = <DashboardTransporte onNav={setCurrent}/>; break;
+      case "transporte-viajes":         content = <MonitorViajes onNav={setCurrent} setCurrentOV={setCurrentOV}/>; break;
+      case "transporte-crear-ov":       content = <CrearOVPage onNav={setCurrent}/>; break;
+      case "transporte-ruta":           content = <HojaDeRuta onNav={setCurrent} ovId={currentOV}/>; break;
+      case "transporte-tarifas":        content = <MaestroRutas onNav={setCurrent}/>; break;
+      case "transporte-liquidacion":    content = <LiquidacionTransporte onNav={setCurrent}/>; break;
       default: content = <PlaceholderPage title={label.title}/>;
     }
   }

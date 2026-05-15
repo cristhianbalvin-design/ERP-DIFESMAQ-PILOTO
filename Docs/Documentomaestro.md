@@ -1,6 +1,6 @@
 # Documento Maestro - ERP Operativo Minero
 
-**Proyecto:** ERP - DIFESMAQ / ZAHORY SAC  
+**Proyecto:** ERP - DIFESMAQ  
 **Fecha de auditoria:** 15 de mayo de 2026  
 **Estado real:** prototipo frontend en React + Vite, con datos mock en memoria  
 **Objetivo de este documento:** que cualquier agente pueda entender rapidamente que existe hoy en la plataforma, que esta simulado, que esta pendiente y donde debe tocar el codigo.
@@ -326,7 +326,7 @@ Incluye:
 - Lista de equipos.
 - Panel de detalle.
 - Tabs: ficha tecnica, horometros, historial OTs.
-- Propietario del activo: Cliente o ZAHORY SAC.
+- Propietario del activo: Cliente o DIFESMAQ.
 - Indicacion de OT facturable vs OT de inversion.
 - Estado de acondicionamiento.
 
@@ -579,7 +579,7 @@ Importante: este SQL asume que ya existen tablas como `ot`, `backlog`, `ot_tarea
 
 1. Hay textos con problemas de encoding/mojibake en varios archivos fuente. Ejemplos visibles: caracteres como `Ã³`, `â€”`, `Â·`. Antes de seguir ampliando UI conviene normalizar a UTF-8.
 
-2. La marca no esta completamente consistente. El repo y SQL mencionan DIFESMAQ, la UI muestra ZAHORY SAC y el cargo financiero usa `Interno_DIFESMAQ`.
+2. La marca debe mantenerse consistente como DIFESMAQ. El cargo financiero vigente usa `Interno_DIFESMAQ`.
 
 3. `showFutureModules` existe en `App.jsx`, pero no esta integrado claramente al sidebar.
 
@@ -600,7 +600,7 @@ Importante: este SQL asume que ya existen tablas como `ot`, `backlog`, `ot_tarea
 ### Prioridad 1 - Estabilizar base tecnica
 
 - Normalizar encoding UTF-8 de archivos fuente.
-- Definir nombre oficial de producto/empresa: DIFESMAQ, ZAHORY SAC o ambos con roles claros.
+- Mantener nombre oficial de producto/empresa como DIFESMAQ en UI, docs y datos mock.
 - Separar mocks por dominio o preparar una capa `services`.
 - Agregar tests unitarios para `src/schemas/otSchema.js`.
 
@@ -675,4 +675,3 @@ La plataforma esta en una etapa de prototipo frontend avanzado. Ya comunica bien
 - Maestros visuales de clientes, contratos, equipos, repuestos y usuarios.
 
 El siguiente salto no es agregar mas pantallas: es conectar persistencia real, limpiar encoding, estabilizar nomenclatura y convertir los flujos simulados en transacciones reales.
-
