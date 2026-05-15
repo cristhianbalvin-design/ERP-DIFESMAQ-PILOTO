@@ -1,5 +1,17 @@
 export const TIPO_TRABAJO_VALUES = ['Preventivo_PM', 'Correctivo', 'Acondicionamiento', 'Overhaul'];
-export const TIPO_CARGO_VALUES = ['Cliente_Contrato', 'Interno_DIFESMAQ', 'Garantia_Fabrica', 'Reclamo_Rework'];
+export const TIPO_CARGO_VALUES   = ['Cliente_Contrato', 'Interno_Zahory', 'Garantia_Fabrica', 'Reclamo_Rework'];
+
+export const LINEA_NEGOCIO_VALUES = [
+  'flota_alquileres', 'maestranza_fab', 'transporte_comercial',
+  'venta_repuestos',  'interno_zahory',
+];
+export const LINEA_NEGOCIO_LABELS = {
+  flota_alquileres:    'Flota y Alquileres',
+  maestranza_fab:      'Maestranza y Fab.',
+  transporte_comercial:'Transporte Comercial',
+  venta_repuestos:     'Venta de Repuestos',
+  interno_zahory:      'Interno Zahory',
+};
 
 export const ESPECIALIDADES = [
   { id: 'MEC_A',  label: 'Mecánico A',          tarifaUSD: 35 },
@@ -21,7 +33,7 @@ export const OT_COMBINATION_GUARDS = {
     'Un Overhaul es una reconstruccion mayor planificada, no un Retrabajo. Verifique su seleccion.',
 };
 
-export const NON_BILLABLE_CARGOS = ['Interno_DIFESMAQ', 'Garantia_Fabrica', 'Reclamo_Rework'];
+export const NON_BILLABLE_CARGOS = ['Interno_Zahory', 'Garantia_Fabrica', 'Reclamo_Rework'];
 
 export const getBlockedCargoReason = (tipoTrabajo, tipoCargo) =>
   OT_COMBINATION_GUARDS[`${tipoTrabajo}:${tipoCargo}`] || '';
@@ -92,6 +104,9 @@ export const validateOTForm = (data) => {
   const issues = [];
   const addIssue = (path, message) => issues.push({ path, message });
 
+  if (!data.lineaNegocio)     addIssue(['lineaNegocio'],           'Seleccione la linea de negocio.');
+  if (data.lineaNegocio === 'flota_alquileres' && data.tipoCargo === 'Interno_Zahory')
+    addIssue(['tipoCargo'], 'Una OT de Flota no puede tener cargo interno. Use Cliente_Contrato o Garantia_Fabrica.');
   if (!data.clienteId)        addIssue(['clienteId'],             'Seleccione un cliente.');
   if (!data.contratoId)       addIssue(['contratoId'],            'Seleccione un contrato / proyecto.');
   if (!data.equipo)           addIssue(['equipo'],                'Seleccione un activo / equipo.');

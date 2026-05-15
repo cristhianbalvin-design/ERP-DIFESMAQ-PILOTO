@@ -15,7 +15,7 @@ const TRABAJO_CFG = {
 // ── Columna 3: Clasificación (tipo_cargo) — badge filled, rework destructivo
 const CARGO_CFG = {
   Cliente_Contrato: { label: 'Cliente / Contrato', cls: 'badge cyan'    },
-  Interno_DIFESMAQ: { label: 'Interno ZAHORY',     cls: 'badge slate'   },
+  Interno_Zahory:    { label: 'Interno Zahory',     cls: 'badge slate'   },
   Garantia_Fabrica: { label: 'Garantía Fábrica',   cls: 'badge orange'  },
   Reclamo_Rework:   { label: '⚠ Reclamo / Rework', cls: 'badge-destructive' },
 };
@@ -40,7 +40,7 @@ const UBICACION_MAP = {
 const enrichOT = (r, i) => ({
   ...r,
   estadoTecnico: r.tipoCargo === 'Reclamo_Rework' ? 'En Ejecución' : ESTADO_TEC_SEQ[i % ESTADO_TEC_SEQ.length],
-  ubicacion: r.tipoCargo === 'Interno_DIFESMAQ' ? 'Taller — Lurín' : (UBICACION_MAP[r.proy] || 'Taller — Carapongo'),
+  ubicacion: r.tipoCargo === 'Interno_Zahory' ? 'Taller — Lurín' : (UBICACION_MAP[r.proy] || 'Taller — Carapongo'),
   dias: Math.max(0, Math.round((NOW - new Date(r.fechaProgramadaInicio)) / 86400000)),
 });
 

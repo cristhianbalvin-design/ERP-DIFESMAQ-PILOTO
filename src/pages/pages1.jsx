@@ -568,7 +568,7 @@ const CostosContent = ({ onNav, setCurrentOT }) => {
 
   const cargoLabel = (cargo) => ({
     Cliente_Contrato: "Cliente / Contrato",
-    Interno_DIFESMAQ: "Interno ZAHORY SAC",
+    Interno_Zahory:   "Interno Zahory",
     Garantia_Fabrica: "Garantia Fabrica",
     Reclamo_Rework: "Reclamo Rework",
   }[cargo] || cargo || "Sin cargo");
@@ -580,7 +580,7 @@ const CostosContent = ({ onNav, setCurrentOT }) => {
   }[trabajo] || trabajo || "Sin tipo");
   const cargoBadge = (cargo) => ({
     Cliente_Contrato: "green",
-    Interno_DIFESMAQ: "slate",
+    Interno_Zahory:   "slate",
     Garantia_Fabrica: "orange",
     Reclamo_Rework: "red",
   }[cargo] || "slate");
@@ -671,7 +671,7 @@ const CostosContent = ({ onNav, setCurrentOT }) => {
           <select className="select" value={cargoFilter} onChange={e => setCargoFilter(e.target.value)} style={{ minWidth: 190 }}>
             <option value="Todos">Todos</option>
             <option value="Cliente_Contrato">Cliente / Contrato</option>
-            <option value="Interno_DIFESMAQ">Interno ZAHORY SAC</option>
+            <option value="Interno_Zahory">Interno Zahory</option>
             <option value="Garantia_Fabrica">Garantia Fabrica</option>
             <option value="Reclamo_Rework">Reclamo Rework</option>
           </select>

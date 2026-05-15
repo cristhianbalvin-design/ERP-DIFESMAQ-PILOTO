@@ -1931,3 +1931,120 @@ export const LiquidacionRentalPage = ({ onNav, setCurrentOT }) => {
     </div>
   );
 };
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Dashboard Rental — Panel ejecutivo de la línea Flota y Alquileres
+// ═══════════════════════════════════════════════════════════════════════════════
+const _RENTAL_STATS = (() => {
+  const enCampo     = LIQUIDACION_MOCK.length;
+  const dmrProm     = (LIQUIDACION_MOCK.reduce((s, e) => s + e.dmr, 0) / enCampo).toFixed(1);
+  const facturMes   = LIQUIDACION_MOCK.reduce((s, e) => s + Math.max(e.horasReales, e.horasContrato) * e.tarifa, 0);
+  const liqPendiente= LIQUIDACION_MOCK.filter(e => e.estado === 'En Revisión').length;
+  const criticos    = LIQUIDACION_MOCK.filter(e => e.dmr < e.metaDMR).length;
+  return { enCampo, dmrProm, facturMes, liqPendiente, criticos };
+})();
+
+const _DMR_COLOR = (dmr, meta) => {
+  if (dmr >= 90)          return { bg: '#E8F5E9', color: '#1B5E20', dot: '#4CAF50' };
+  if (dmr >= meta)        return { bg: '#FFF3E0', color: '#C15D00', dot: '#FF9800' };
+  return                         { bg: '#FFEBEE', color: '#B71C1C', dot: '#E53935' };
+};
+
+export const DashboardRentalPage = ({ onNav }) => {
+  const s = _RENTAL_STATS;
+
+  const KpiCard = ({ label, value, sub, accent }) => (
+    <div style={{
+      background: 'linear-gradient(135deg, #0f172a, #1e2d45)',
+      borderRadius: 10, padding: '18px 20px',
+      border: '1px solid rgba(255,255,255,0.06)',
+    }}>
+      <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '1px', color: '#94a3b8', textTransform: 'uppercase', marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: 28, fontWeight: 800, color: accent || '#f1f5f9', lineHeight: 1 }}>{value}</div>
+      {sub && <div style={{ fontSize: 11, color: '#64748b', marginTop: 6 }}>{sub}</div>}
+    </div>
+  );
+
+  return (
+    <div className="page">
+      <div className="page-header">
+        <div>
+          <h1>Dashboard Rental</h1>
+          <div className="sub">Línea de negocio — Flota y Alquileres</div>
+        </div>
+        <div className="spacer"/>
+        <button className="btn btn-cyan" onClick={() => onNav('flota')}>Ver Panel de Flota</button>
+        <button className="btn btn-secondary" onClick={() => onNav('liquidacion')}>Liquidaciones</button>
+      </div>
+
+      {/* KPI strip */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 24 }}>
+        <KpiCard label="Equipos en Campo"         value={s.enCampo}           sub="contratos activos"                    accent="#38bdf8"/>
+        <KpiCard label="DMR Promedio Flota"        value={`${s.dmrProm}%`}     sub="últimos 30 días"                      accent={Number(s.dmrProm) >= 88 ? '#4ade80' : '#fbbf24'}/>
+        <KpiCard label="Facturación Est. del Mes"  value={`$${s.facturMes.toLocaleString('en-US',{maximumFractionDigits:0})}`} sub="USD — por horas facturables" accent="#f1f5f9"/>
+        <KpiCard label="Liq. Pendientes Aprobación" value={s.liqPendiente}     sub={s.criticos > 0 ? `${s.criticos} equipos bajo meta DMR` : 'Sin alertas críticas'} accent={s.liqPendiente > 0 ? '#fbbf24' : '#4ade80'}/>
+      </div>
+
+      {/* Contratos activos */}
+      <div className="card" style={{ marginBottom: 20 }}>
+        <div className="card-header">
+          <h3>Contratos Activos</h3>
+          <span className="hint">{LIQUIDACION_MOCK.length} equipos en campo</span>
+          <div style={{ marginLeft: 'auto' }}>
+            <button className="btn btn-ghost btn-sm" onClick={() => onNav('contratos-rental')}>Ver todos los contratos</button>
+          </div>
+        </div>
+        <table className="tbl">
+          <thead>
+            <tr>
+              <th>Equipo</th><th>Cliente</th><th>Proyecto</th>
+              <th>DMR Real</th><th>Meta DMR</th><th>Hrs. Reales</th>
+              <th>Estado</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {LIQUIDACION_MOCK.map(e => {
+              const c = _DMR_COLOR(e.dmr, e.metaDMR);
+              return (
+                <tr key={e.equipo} className="clickable" onClick={() => onNav('liquidacion')}>
+                  <td><span className="ot-code">{e.equipo}</span><div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{e.modelo}</div></td>
+                  <td>{e.cliente}</td>
+                  <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>{e.proyecto}</td>
+                  <td>
+                    <span style={{ display:'inline-flex', alignItems:'center', gap:6, background: c.bg, color: c.color, padding:'3px 10px', borderRadius:20, fontSize:12, fontWeight:700 }}>
+                      <span style={{ width:7, height:7, borderRadius:'50%', background: c.dot }}/>
+                      {e.dmr}%
+                    </span>
+                  </td>
+                  <td style={{ color:'var(--text-muted)', fontSize:12 }}>{e.metaDMR}%</td>
+                  <td className="num">{e.horasReales} h</td>
+                  <td><span className={"badge " + (e.estado === 'Pre-facturado' ? 'green' : 'orange')}>{e.estado}</span></td>
+                  <td><button className="btn btn-ghost btn-sm" onClick={ev => { ev.stopPropagation(); onNav('liquidacion'); }}>Detalle</button></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Alertas rápidas */}
+      {s.criticos > 0 && (
+        <div className="card" style={{ borderLeft: '4px solid var(--red)' }}>
+          <div className="card-body">
+            <div style={{ display:'flex', alignItems:'center', gap:10, color:'var(--red)', fontWeight:700, marginBottom:8 }}>
+              <Icon name="alert" size={16}/>
+              {s.criticos} equipo(s) con DMR por debajo de la meta contractual
+            </div>
+            {LIQUIDACION_MOCK.filter(e => e.dmr < e.metaDMR).map(e => (
+              <div key={e.equipo} style={{ fontSize:13, color:'var(--text-muted)', marginBottom:4 }}>
+                · <strong style={{ color:'var(--text)' }}>{e.equipo}</strong> — DMR {e.dmr}% vs meta {e.metaDMR}% ({e.cliente})
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <FooterBrand/>
+    </div>
+  );
+};

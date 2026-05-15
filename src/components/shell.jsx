@@ -59,281 +59,242 @@ export const fmt2 = (n, currency = "USD", fx = 3.745) => {
   return sym + v.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 };
 
-// ─── Module Profiles (Selector de Rol/Módulo) ─────────────────────────────────
-//
-// TypeScript equivalent:
-// type ModuleProfile = { id: string; label: string; emoji: string; description: string }
-//
-const MODULE_PROFILES = [
-  { id: 'todos',         label: 'Vista General',       emoji: '🗂️', description: 'Todos los módulos' },
-  { id: 'taller',        label: 'Taller y Servicios',  emoji: '🛠️', description: 'OTs, partes, dispatch' },
-  { id: 'confiabilidad', label: 'Confiabilidad',        emoji: '📈', description: 'SOS, backlogs, mina' },
-  { id: 'rental',        label: 'Alquileres',           emoji: '🚜', description: 'Flota pesada y liviana' },
-  { id: 'maestranza',    label: 'Maestranza',           emoji: '⚙️', description: 'Fabricación, materia prima' },
+// ─── Sidebar Zones — v5.3 Business Lines Architecture ────────────────────────
+// type 'flat'             → zone label + simple items
+// type 'business-lines'  → zone label + accordion sub-groups (each line is a group)
+// type 'shared-resources'→ zone label + always-visible labeled sub-groups
+const SIDEBAR_ZONES = [
+  {
+    id: 'gerencial', label: 'Gerencial', type: 'flat',
+    roles: ['gerente', 'tecnico'],
+    items: [
+      { id: 'dashboard', label: 'Dashboard General', icon: 'dashboard' },
+    ],
+  },
+  {
+    id: 'lineas', label: 'Líneas de Negocio', type: 'business-lines',
+    roles: ['gerente'],
+    groups: [
+      {
+        id: 'flota-alquileres', label: 'Flota y Alquileres', emoji: '🚜',
+        items: [
+          { id: 'dashboard-rental', label: 'Dashboard Rental',   icon: 'dashboard' },
+          { id: 'flota',            label: 'Panel de Flota',     icon: 'equipment' },
+          { id: 'contratos-rental', label: 'Contratos y Tarifas',icon: 'report'    },
+          { id: 'checkout',         label: 'Actas / Despachos',  icon: 'check'     },
+          { id: 'liquidacion',      label: 'Liquidación y DMR',  icon: 'chart'     },
+        ],
+      },
+      {
+        id: 'transporte', label: 'Transporte Comercial', emoji: '🚚',
+        items: [
+          { id: 'dashboard-transporte', label: 'Dashboard Transporte', icon: 'dashboard' },
+          { id: 'transporte-viajes',    label: 'Monitor Viajes',       icon: 'mine'      },
+          { id: 'transporte-ruta',      label: 'Hoja de Ruta',         icon: 'arrow'     },
+          { id: 'transporte-tarifas',   label: 'Maestro Rutas',        icon: 'rates'     },
+        ],
+      },
+      {
+        id: 'maestranza', label: 'Maestranza y Fab.', emoji: '🏭',
+        items: [
+          { id: 'dashboard-maestranza', label: 'Dashboard Maestranza', icon: 'dashboard' },
+          { id: 'maestranza-of',        label: 'Órdenes de Fab. (OF)', icon: 'parts'     },
+          { id: 'maestranza-bom',       label: 'Estructuras BOM',      icon: 'package'   },
+          { id: 'maestranza-piso',      label: 'Control de Piso',      icon: 'activity'  },
+        ],
+      },
+      {
+        id: 'venta-repuestos', label: 'Venta de Repuestos', emoji: '🛒',
+        items: [
+          { id: 'dashboard-repuestos', label: 'Dashboard Repuestos', icon: 'dashboard' },
+          { id: 'pedidos-venta',       label: 'Pedidos de Venta',    icon: 'orders'    },
+          { id: 'catalogo-precios',    label: 'Catálogo y Precios',  icon: 'box'       },
+          { id: 'despachos-repuestos', label: 'Despachos',           icon: 'download'  },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'recursos', label: 'Recursos Compartidos', type: 'shared-resources',
+    roles: ['gerente', 'tecnico'],
+    groups: [
+      {
+        id: 'taller-ots', label: 'Taller y OTs',
+        roles: ['gerente', 'tecnico'],
+        items: [
+          { id: 'ots',          label: 'Bandeja de OTs',  icon: 'orders',   roles: ['gerente'] },
+          { id: 'crear-ot',     label: 'Nueva OT (DBS)',  icon: 'plus',     roles: ['gerente'] },
+          { id: 'partes-taller',label: 'Partes Taller',   icon: 'workshop', roles: ['gerente', 'tecnico'] },
+          { id: 'partes-mina',  label: 'Reportes Mina',   icon: 'mine',     roles: ['gerente', 'tecnico'] },
+        ],
+      },
+      {
+        id: 'confiabilidad', label: 'Confiabilidad',
+        roles: ['gerente', 'tecnico'],
+        items: [
+          { id: 'backlog',                   label: 'Backlog Operativo',    icon: 'orders',   roles: ['gerente', 'tecnico'] },
+          { id: 'sos-telemetria',            label: 'Análisis SOS',         icon: 'activity', roles: ['gerente'] },
+          { id: 'indicadores-confiabilidad', label: 'Indicadores MTBF/MTTR',icon: 'chart',    roles: ['gerente'] },
+        ],
+      },
+      {
+        id: 'almacen', label: 'Almacén y Repuestos',
+        roles: ['gerente'],
+        items: [
+          { id: 'catalogo',              label: 'Inventario',          icon: 'box'      },
+          { id: 'solicitudes',           label: 'Solicitudes (SOLPE)', icon: 'parts'    },
+          { id: 'compras-importaciones', label: 'Compras e Import.',   icon: 'download' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'comercial', label: 'Comercial y Finanzas', type: 'flat',
+    roles: ['gerente'],
+    items: [
+      { id: 'clientes',    label: 'Clientes',              icon: 'clients', altIds: ['equipos', 'proyectos'] },
+      { id: 'proveedores', label: 'Proveedores',           icon: 'clients' },
+      { id: 'consolidado', label: 'Facturación',           icon: 'report'  },
+      { id: 'costos',      label: 'Costos y Rentabilidad', icon: 'chart'   },
+    ],
+  },
+  {
+    id: 'configuracion', label: 'Configuración', type: 'flat',
+    roles: ['gerente'],
+    items: [
+      { id: 'usuarios', label: 'Usuarios y Roles',    icon: 'users' },
+      { id: 'config',   label: 'Parámetros Globales', icon: 'cog'   },
+    ],
+  },
 ];
 
-// ─── Nav Groups (Domain-Driven Design) ───────────────────────────────────────
-//
-// TypeScript equivalent:
-// type NavItem  = { id: string; label: string; icon: string; badge?: string; locked?: boolean; future?: boolean }
-// type NavGroup = { id: string; label: string; icon: string; accent: string; profiles: string[];
-//                   macrozone?: string;  items: NavItem[] }
-//
-// macrozone: if present, renders a visual section label above this group.
-//
-const NAV_GROUPS = [
-  {
-    id: 'core',
-    label: 'Core y Comercial',
-    icon: 'briefcase',
-    accent: '#00BCD4',
-    macrozone: 'CORE Y COMERCIAL',
-    profiles: ['todos', 'taller', 'confiabilidad', 'rental', 'maestranza'],
-    items: [
-      { id: 'dashboard',    label: 'Dashboard Directivo',      icon: 'dashboard' },
-      { id: 'clientes',     label: 'Clientes y Contratos',     icon: 'clients'   },
-      { id: 'docs',         label: 'Documentos comerciales',   icon: 'report'    },
-      { id: 'proyectos',    label: 'Proyectos y Tarifas',      icon: 'rates'     },
-      { id: 'cotizaciones', label: 'Cotizaciones de servicio', icon: 'pdf',    future: true },
-      { id: 'venta-rep',    label: 'Venta de Repuestos',       icon: 'box',    future: true },
-    ],
-  },
-  {
-    id: 'taller-sv',
-    label: 'Taller y Servicios',
-    icon: 'workshop',
-    accent: '#60A5FA',
-    macrozone: 'OPERACIONES TÉCNICAS',
-    profiles: ['todos', 'taller'],
-    items: [
-      { id: 'ots',          label: 'Gestión de OTs',             icon: 'orders'   },
-      { id: 'partes-taller', label: 'Partes Diarios (Taller)',   icon: 'report'   },
-      { id: 'partes-mina',  label: 'Partes Diarios (Mina)',      icon: 'mine'     },
-      { id: 'dispatch',     label: 'Programación / Dispatch',    icon: 'users',   future: true },
-    ],
-  },
-  {
-    id: 'confiab',
-    label: 'Confiabilidad y Monitoreo',
-    icon: 'activity',
-    accent: '#34D399',
-    profiles: ['todos', 'taller', 'confiabilidad'],
-    items: [
-      { id: 'backlog',    label: 'Gestión de Backlogs',     icon: 'orders' },
-      { id: 'sos',        label: 'Monitoreo SOS / Fluidos', icon: 'chart', future: true },
-      { id: 'telemetria', label: 'Telemetría de equipos',   icon: 'rates', future: true },
-    ],
-  },
-  {
-    id: 'maestranza',
-    label: 'Maestranza y Fabricación',
-    icon: 'cog',
-    accent: '#FB923C',
-    macrozone: 'PRODUCCIÓN Y FLOTA',
-    profiles: ['todos', 'maestranza'],
-    items: [
-      { id: 'fabricacion', label: 'Órdenes de Fabricación',   icon: 'parts', locked: true },
-      { id: 'materia',     label: 'Control de Materia Prima', icon: 'box',   locked: true },
-    ],
-  },
-  {
-    id: 'rental',
-    label: 'Gestión de Alquileres',
-    icon: 'equipment',
-    accent: '#A78BFA',
-    profiles: ['todos', 'rental'],
-    items: [
-      { id: 'flota',             label: 'Panel de Flota',       icon: 'equipment' },
-      { id: 'contratos-rental',  label: 'Contratos y Tarifas',  icon: 'report'    },
-      { id: 'checkout',          label: 'Actas / Despachos',    icon: 'check'     },
-      { id: 'liquidacion',       label: 'Liquidación y DMR',    icon: 'chart'     },
-    ],
-  },
-  {
-    id: 'backoffice',
-    label: 'Backoffice',
-    macrozone: 'BACKOFFICE Y SOPORTE',
-    icon: 'package',
-    accent: '#94A3B8',
-    profiles: ['todos', 'taller', 'confiabilidad', 'rental', 'maestranza'],
-    items: [
-      { id: 'catalogo',    label: 'Catálogo de repuestos',    icon: 'box'                       },
-      { id: 'solicitudes', label: 'Solicitudes de repuestos', icon: 'parts'                     },
-      { id: 'costos',      label: 'Costos y rentabilidad',    icon: 'chart',  badge: 'NUEVO'    },
-      { id: 'consolidado', label: 'Reporte consolidado',      icon: 'report'                    },
-      { id: 'equipos',     label: 'Equipos y Activos',        icon: 'equipment'                 },
-      { id: 'usuarios',    label: 'Usuarios y Roles',         icon: 'users'                     },
-      { id: 'config',      label: 'Configuración',            icon: 'cog'                       },
-    ],
-  },
-];
-
-// ─── Tecnico nav (simplified, unchanged) ─────────────────────────────────────
-const NAV_TECNICO = [
-  { id: 'dashboard',     label: 'Dashboard',                icon: 'dashboard' },
-  { id: 'nuevo-reporte', label: 'Nuevo reporte',            icon: 'plus'      },
-  { id: 'mis-reportes',  label: 'Mis reportes',             icon: 'report'    },
-  { id: 'solicitudes',   label: 'Solicitudes de repuestos', icon: 'parts'     },
-];
-
-const findGroupForPage = (pageId) => {
-  for (const g of NAV_GROUPS) {
+const findLineForPage = (pageId) => {
+  const linesZone = SIDEBAR_ZONES.find(z => z.id === 'lineas');
+  if (!linesZone) return null;
+  for (const g of linesZone.groups) {
     if (g.items.some(it => it.id === pageId)) return g.id;
   }
-  return 'core';
+  return null;
 };
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
 export const Sidebar = ({ current, onNav, role, onLogout }) => {
-  const [moduleProfile, setModuleProfile] = useState('todos');
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [openGroups, setOpenGroups] = useState(
-    () => new Set(NAV_GROUPS.map(g => g.id))
-  );
-
-  useEffect(() => {
-    const gid = findGroupForPage(current);
-    setOpenGroups(prev => { const s = new Set(prev); s.add(gid); return s; });
-  }, [current]);
-
-  const toggleGroup = (gid) => setOpenGroups(prev => {
-    const s = new Set(prev);
-    if (s.has(gid)) s.delete(gid); else s.add(gid);
+  const [openLines, setOpenLines] = useState(() => {
+    const s = new Set(['flota-alquileres']);
+    const line = findLineForPage(current);
+    if (line) s.add(line);
     return s;
   });
+
+  useEffect(() => {
+    const line = findLineForPage(current);
+    if (line) setOpenLines(prev => { const s = new Set(prev); s.add(line); return s; });
+  }, [current]);
+
+  const toggleLine = (id) => setOpenLines(prev => {
+    const s = new Set(prev);
+    if (s.has(id)) s.delete(id); else s.add(id);
+    return s;
+  });
+
+  const roleStr  = role === 'tecnico' ? 'tecnico' : 'gerente';
+  const canSee   = (roles) => !roles || roles.includes(roleStr);
+  const isActive = (it) => it.id === current || (it.altIds?.includes(current) ?? false);
 
   const user = role === 'tecnico'
     ? { name: 'Miranda Barra, S.', role: 'Técnico de Mina',       initials: 'MB' }
     : { name: 'A. Castro',          role: 'Gerente de Operaciones', initials: 'AC' };
 
-  const activeProfile = MODULE_PROFILES.find(p => p.id === moduleProfile) ?? MODULE_PROFILES[0];
-
-  // ── Tecnico: simplified flat nav ──────────────────────────────────────────
-  if (role === 'tecnico') {
-    return (
-      <aside className="sidebar">
-        <div className="sidebar-logo">
-          <div className="mark">D</div>
-          <div className="wordmark">ZAHORY SAC<small>ERP Operativo Minero</small></div>
-        </div>
-        <div className="sidebar-scroll">
-          {NAV_TECNICO.map(it => (
-            <button key={it.id} className={"nav-item " + (current === it.id ? "active" : "")} onClick={() => onNav(it.id)}>
-              <Icon name={it.icon} size={15}/>
-              <span className="label">{it.label}</span>
-            </button>
-          ))}
-        </div>
-        <div className="sidebar-footer">
-          <div className="avatar">{user.initials}</div>
-          <div className="meta"><div className="name">{user.name}</div><div className="role">{user.role}</div></div>
-          <button className="logout" onClick={onLogout} title="Cerrar sesión"><Icon name="logout" size={15}/></button>
-        </div>
-      </aside>
-    );
-  }
-
-  // ── Gerente: DDD grouped nav ───────────────────────────────────────────────
-  const visibleGroups = NAV_GROUPS.filter(g => g.profiles.includes(moduleProfile));
-
   return (
     <aside className="sidebar">
 
-      {/* Logo */}
       <div className="sidebar-logo">
-        <div className="mark">D</div>
+        <div className="mark">Z</div>
         <div className="wordmark">ZAHORY SAC<small>ERP Operativo Minero</small></div>
       </div>
 
-      {/* Module / Role Selector */}
-      <div className="module-selector">
-        <button
-          className={"module-sel-head" + (profileOpen ? " open" : "")}
-          onClick={() => setProfileOpen(p => !p)}
-        >
-          <span className="ms-emoji">{activeProfile.emoji}</span>
-          <span className="ms-label">{activeProfile.label}</span>
-          <span className="ms-chev"><Icon name="chevDown" size={11}/></span>
-        </button>
-
-        {profileOpen && (
-          <div className="module-sel-body">
-            {MODULE_PROFILES.map(p => (
-              <button
-                key={p.id}
-                className={"module-profile-btn" + (p.id === moduleProfile ? " active" : "")}
-                onClick={() => { setModuleProfile(p.id); setProfileOpen(false); }}
-              >
-                <span className="mp-emoji">{p.emoji}</span>
-                <div className="mp-text">
-                  <div className="mp-label">{p.label}</div>
-                  <div className="mp-desc">{p.description}</div>
-                </div>
-                {p.id === moduleProfile && <Icon name="check" size={11}/>}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* DDD Nav Groups */}
       <div className="sidebar-scroll">
-        {visibleGroups.map(group => {
-          const isOpen = openGroups.has(group.id);
-          const hasActive = group.items.some(it => it.id === current);
+        {SIDEBAR_ZONES.filter(z => canSee(z.roles)).map(zone => {
 
-          return (
-            <div key={group.id}>
-              {group.macrozone && (
-                <div className="nav-macrozone">{group.macrozone}</div>
-              )}
-              <div className={"nav-group" + (isOpen ? " open" : "")}>
-
-                <button
-                  className={"nav-group-head" + (hasActive ? " has-active" : "")}
-                  onClick={() => toggleGroup(group.id)}
-                  title={group.label}
-                >
-                  <span className="g-icon" style={{ color: group.accent }}>
-                    <Icon name={group.icon} size={14}/>
-                  </span>
-                  <span className="g-label">{group.label}</span>
-                  <span className="g-chev"><Icon name="chev" size={11}/></span>
-                </button>
-
-                <div className="nav-group-body">
-                  {group.items.map(it => {
-                    if (it.locked) {
-                      return (
-                        <div key={it.id} className="nav-item locked">
-                          <Icon name={it.icon} size={14}/>
-                          <span className="label">{it.label}</span>
-                          <Icon name="lock" size={11}/>
-                        </div>
-                      );
-                    }
-                    return (
-                      <button
-                        key={it.id}
-                        className={"nav-item" + (current === it.id ? " active" : "") + (it.future ? " future" : "")}
-                        onClick={() => onNav(it.id)}
-                      >
-                        <Icon name={it.icon} size={14}/>
-                        <span className="label">{it.label}</span>
-                        {it.badge  && <span className="badge-new">{it.badge}</span>}
-                        {it.future && <span className="badge-soon">Beta</span>}
-                      </button>
-                    );
-                  })}
-                </div>
-
+          // ── Flat zone ────────────────────────────────────────────────────
+          if (zone.type === 'flat') {
+            const vis = zone.items.filter(it => canSee(it.roles));
+            if (!vis.length) return null;
+            return (
+              <div key={zone.id}>
+                <div className="nav-section-label"><span className="dot"/>{zone.label}</div>
+                {vis.map(it => (
+                  <button key={it.id} className={"nav-item" + (isActive(it) ? " active" : "")} onClick={() => onNav(it.id)}>
+                    <Icon name={it.icon} size={14}/><span className="label">{it.label}</span>
+                  </button>
+                ))}
               </div>
-            </div>
-          );
+            );
+          }
+
+          // ── Business-lines zone (accordion sub-groups) ───────────────────
+          if (zone.type === 'business-lines') {
+            return (
+              <div key={zone.id}>
+                <div className="nav-section-label"><span className="dot"/>{zone.label}</div>
+                {zone.groups.map(g => {
+                  const isOpen    = openLines.has(g.id);
+                  const hasActive = g.items.some(it => isActive(it));
+                  return (
+                    <div key={g.id} className={"nav-group" + (isOpen ? " open" : "")}>
+                      <button
+                        className={"nav-group-head" + (hasActive ? " has-active" : "")}
+                        onClick={() => toggleLine(g.id)}
+                      >
+                        <span className="g-icon" style={{ fontSize: 13 }}>{g.emoji}</span>
+                        <span className="g-label">{g.label}</span>
+                        <span className="g-chev"><Icon name="chev" size={11}/></span>
+                      </button>
+                      <div className="nav-group-body">
+                        {g.items.map(it => (
+                          <button key={it.id} className={"nav-item" + (isActive(it) ? " active" : "")} onClick={() => onNav(it.id)}>
+                            <Icon name={it.icon} size={14}/><span className="label">{it.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          }
+
+          // ── Shared-resources zone (always-visible labeled sub-groups) ────
+          if (zone.type === 'shared-resources') {
+            const visGroups = zone.groups.filter(g => canSee(g.roles));
+            if (!visGroups.length) return null;
+            return (
+              <div key={zone.id}>
+                <div className="nav-section-label"><span className="dot"/>{zone.label}</div>
+                {visGroups.map(g => {
+                  const visItems = g.items.filter(it => canSee(it.roles));
+                  if (!visItems.length) return null;
+                  return (
+                    <div key={g.id}>
+                      <div style={{ padding: '7px 12px 3px 16px', fontSize: 10, fontWeight: 700, color: 'var(--slate-2)', letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                        {g.label}
+                      </div>
+                      {visItems.map(it => (
+                        <button key={it.id} className={"nav-item" + (isActive(it) ? " active" : "")} style={{ paddingLeft: 26 }} onClick={() => onNav(it.id)}>
+                          <Icon name={it.icon} size={14}/><span className="label">{it.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          }
+
+          return null;
         })}
       </div>
 
-      {/* Footer */}
       <div className="sidebar-footer">
         <div className="avatar">{user.initials}</div>
         <div className="meta">

@@ -16,6 +16,8 @@ import {
   calcSegmentoRepuestos,
   calcSegmentoTerceros,
   calcOTTotals,
+  LINEA_NEGOCIO_VALUES,
+  LINEA_NEGOCIO_LABELS,
 } from '../schemas/otSchema.js';
 
 const D = ZAHORY_SAC_DATA;
@@ -24,8 +26,8 @@ const TODAY = new Date().toISOString().slice(0, 10);
 
 export const OT_FORM_SCHEMA = {
   tipo_trabajo: ['Preventivo_PM', 'Correctivo', 'Acondicionamiento', 'Overhaul'],
-  tipo_cargo: ['Cliente_Contrato', 'Interno_DIFESMAQ', 'Garantia_Fabrica', 'Reclamo_Rework'],
-  required: ['cliente_id', 'contrato_id', 'equipo', 'lugar_ejecucion', 'tipo_trabajo', 'tipo_cargo', 'tecnico', 'descripcion'],
+  tipo_cargo: ['Cliente_Contrato', 'Interno_Zahory', 'Garantia_Fabrica', 'Reclamo_Rework'],
+  required: ['linea_negocio', 'cliente_id', 'contrato_id', 'equipo', 'lugar_ejecucion', 'tipo_trabajo', 'tipo_cargo', 'tecnico', 'descripcion'],
   conditional: {
     motivo_retrabajo: "required when tipo_cargo === 'Reclamo_Rework'",
     ingreso_facturable_usd: "forced to 0 when tipo_cargo in NON_BILLABLE_CARGOS",
@@ -41,9 +43,9 @@ const TIPO_TRABAJO = [
 
 const TIPO_CARGO = [
   ['Cliente_Contrato', 'Cliente / Contrato'],
-  ['Interno_DIFESMAQ', 'Interno DIFESMAQ'],
+  ['Interno_Zahory',   'Interno Zahory'],
   ['Garantia_Fabrica', 'Garantia Fabrica'],
-  ['Reclamo_Rework', 'Reclamo Rework'],
+  ['Reclamo_Rework',   'Reclamo Rework'],
 ];
 
 const LUGAR_EJECUCION = [
@@ -440,6 +442,7 @@ export const CrearOTPage = ({ onNav }) => {
   const [backlogs, setBacklogs] = useState([]);
   const [creada, setCreada] = useState(null);
   const [form, setForm] = useState({
+    lineaNegocio: '',
     clienteId: '',
     contratoId: '',
     equipo: '',
@@ -541,6 +544,21 @@ export const CrearOTPage = ({ onNav }) => {
           <div className="card" style={{ marginBottom: 12 }}>
             <div className="card-header"><h3>Cabecera DBS</h3><span className="hint">Jerarquia comercial · Matriz Trabajo × Cargo</span></div>
             <div className="ot-form-body">
+
+              <section className="ot-form-section" style={{ marginBottom: 10 }}>
+                <div className="ot-form-section-title">0. Línea de negocio</div>
+                <div style={{ padding: '10px 12px' }}>
+                  <div className="label" style={{ fontSize: 12, marginBottom: 4 }}>Línea de negocio *</div>
+                  <select className="input" value={form.lineaNegocio} onChange={e => set('lineaNegocio', e.target.value)}
+                    style={{ width: '100%', borderColor: fieldErrors.lineaNegocio ? '#E53935' : undefined }}>
+                    <option value="">-- Seleccionar línea --</option>
+                    {LINEA_NEGOCIO_VALUES.map(v => (
+                      <option key={v} value={v}>{LINEA_NEGOCIO_LABELS[v]}</option>
+                    ))}
+                  </select>
+                  {fieldErrors.lineaNegocio?.[0] && <div style={{ fontSize: 11, color: '#E53935', marginTop: 4 }}>{fieldErrors.lineaNegocio[0]}</div>}
+                </div>
+              </section>
 
               <section className="ot-form-section">
                 <div className="ot-form-section-title">1. Contexto comercial</div>

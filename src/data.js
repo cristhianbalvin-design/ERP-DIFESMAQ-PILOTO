@@ -99,13 +99,13 @@ export const ZAHORY_SAC_DATA = {
     { eq: "JB-26",    proy: "Antapaccay",   dmr: 97.95, dmp: 97.92, hrep: 0.50, estado: "cumpliendo" },
   ],
   otsDashboard: [
-    { codigo: 'OT-2026-050', eq: 'JB-24',    tec: 'Pajuelo E.', fecha: '16/04', costo: 772,   margen: 92.4, estado: 'Aprobada',  tipoTrabajo: 'Correctivo',       tipoCargo: 'Cliente_Contrato' },
-    { codigo: 'OT-2026-049', eq: 'SC-701',   tec: 'García R.',  fecha: '15/04', costo: 1764,  margen: 74.1, estado: 'Pendiente', tipoTrabajo: 'Preventivo_PM',    tipoCargo: 'Cliente_Contrato' },
-    { codigo: 'OT-2026-048', eq: 'JB-26',    tec: 'Torres M.',  fecha: '14/04', costo: 565,   margen: 93.4, estado: 'Aprobada',  tipoTrabajo: 'Correctivo',       tipoCargo: 'Cliente_Contrato' },
-    { codigo: 'OT-2026-047', eq: 'JB-DD311', tec: 'Miranda B.', fecha: '13/04', costo: 2100,  margen: 85.2, estado: 'Cerrada',   tipoTrabajo: 'Correctivo',       tipoCargo: 'Cliente_Contrato' },
-    { codigo: 'OT-2026-046', eq: 'JB-NEW-01',tec: 'López V.',   fecha: '12/04', costo: 3200,  margen: null, estado: 'En taller', tipoTrabajo: 'Acondicionamiento', tipoCargo: 'Interno_DIFESMAQ' },
-    { codigo: 'OT-2026-045', eq: 'SC-701',   tec: 'García R.',  fecha: '10/04', costo: 980,   margen: null, estado: 'Aprobada',  tipoTrabajo: 'Correctivo',       tipoCargo: 'Reclamo_Rework' },
-    { codigo: 'OT-2026-044', eq: 'JB-24',    tec: 'Pajuelo E.', fecha: '08/04', costo: 450,   margen: 88.0, estado: 'Aprobada',  tipoTrabajo: 'Preventivo_PM',    tipoCargo: 'Cliente_Contrato' },
+    { codigo: 'OT-2026-050', eq: 'JB-24',    tec: 'Pajuelo E.', fecha: '16/04', costo: 772,   margen: 92.4, estado: 'Aprobada',  tipoTrabajo: 'Correctivo',        tipoCargo: 'Cliente_Contrato', lineaNegocio: 'flota_alquileres' },
+    { codigo: 'OT-2026-049', eq: 'SC-701',   tec: 'García R.',  fecha: '15/04', costo: 1764,  margen: 74.1, estado: 'Pendiente', tipoTrabajo: 'Preventivo_PM',     tipoCargo: 'Cliente_Contrato', lineaNegocio: 'flota_alquileres' },
+    { codigo: 'OT-2026-048', eq: 'JB-26',    tec: 'Torres M.',  fecha: '14/04', costo: 565,   margen: 93.4, estado: 'Aprobada',  tipoTrabajo: 'Correctivo',        tipoCargo: 'Cliente_Contrato', lineaNegocio: 'flota_alquileres' },
+    { codigo: 'OT-2026-047', eq: 'JB-DD311', tec: 'Miranda B.', fecha: '13/04', costo: 2100,  margen: 85.2, estado: 'Cerrada',   tipoTrabajo: 'Correctivo',        tipoCargo: 'Cliente_Contrato', lineaNegocio: 'flota_alquileres' },
+    { codigo: 'OT-2026-046', eq: 'JB-NEW-01',tec: 'López V.',   fecha: '12/04', costo: 3200,  margen: null, estado: 'En taller', tipoTrabajo: 'Acondicionamiento', tipoCargo: 'Interno_Zahory',   lineaNegocio: 'interno_zahory'   },
+    { codigo: 'OT-2026-045', eq: 'SC-701',   tec: 'García R.',  fecha: '10/04', costo: 980,   margen: null, estado: 'Aprobada',  tipoTrabajo: 'Correctivo',        tipoCargo: 'Reclamo_Rework',   lineaNegocio: 'flota_alquileres' },
+    { codigo: 'OT-2026-044', eq: 'JB-24',    tec: 'Pajuelo E.', fecha: '08/04', costo: 450,   margen: 88.0, estado: 'Aprobada',  tipoTrabajo: 'Preventivo_PM',     tipoCargo: 'Cliente_Contrato', lineaNegocio: 'flota_alquileres' },
   ],  // Full OT cost breakdown — incluye costoEstimado para gráfico de desviación (v4.0)
   // facturable: true = activo del cliente; false = acondicionamiento activo propio
   otsCostos: [
@@ -117,7 +117,7 @@ export const ZAHORY_SAC_DATA = {
     { codigo: 'OT-2026-047', eq: 'JB-DD311', proy: 'Pepas de Oro', fecha: '13/04', tipoTrabajo: 'Correctivo',       tec: 'Miranda B.',  mo: 310,  mat: 850,  tra: 90,  ingreso: 12750, tipoCargo: 'Cliente_Contrato', fechaProgramadaInicio: '2026-04-13', fechaAprobacionComercial: '2026-04-12T16:00:00', fechaPrimerLaborReal: '2026-04-13T10:00:00', motivoRetrabajo: '', moEst: 280, matEst: 900, traEst: 90 },
     { codigo: 'OT-2026-046', eq: 'SC-701',   proy: 'Buenaventura', fecha: '12/04', tipoTrabajo: 'Correctivo',       tec: 'García R.',   mo: 800,  mat: 2100, tra: 300, ingreso: 0,     tipoCargo: 'Reclamo_Rework', fechaProgramadaInicio: '2026-04-12', fechaAprobacionComercial: '2026-04-10T15:00:00', fechaPrimerLaborReal: '2026-04-12T09:30:00', motivoRetrabajo: 'Repeticion de falla por ajuste incompleto en taller', moEst: 600, matEst: 1800,traEst: 200 },
     { codigo: 'OT-2026-053', eq: 'JB-26',    proy: 'Antapaccay',   fecha: '08/04', tipoTrabajo: 'Correctivo',       tec: 'Torres M.',   mo: 900,  mat: 1900, tra: 180, ingreso: 0,     tipoCargo: 'Garantia_Fabrica', fechaProgramadaInicio: '2026-04-08', fechaAprobacionComercial: '2026-04-07T09:00:00', fechaPrimerLaborReal: '2026-04-08T12:00:00', motivoRetrabajo: '', moEst: 750, matEst: 1600,traEst: 150 },
-    { codigo: 'OT-2026-054', eq: 'JB-NEW-01',proy: '—',            fecha: '20/04', tipoTrabajo: 'Acondicionamiento', tec: 'López V.',   mo: 1200, mat: 8500, tra: 400, ingreso: 0,     tipoCargo: 'Interno_DIFESMAQ', fechaProgramadaInicio: '2026-04-20', fechaAprobacionComercial: null, fechaPrimerLaborReal: null, motivoRetrabajo: '', moEst: 1000,matEst: 8000,traEst: 350 },
+    { codigo: 'OT-2026-054', eq: 'JB-NEW-01',proy: '—',            fecha: '20/04', tipoTrabajo: 'Acondicionamiento', tec: 'López V.',   mo: 1200, mat: 8500, tra: 400, ingreso: 0,     tipoCargo: 'Interno_Zahory', fechaProgramadaInicio: '2026-04-20', fechaAprobacionComercial: null, fechaPrimerLaborReal: null, motivoRetrabajo: '', moEst: 1000,matEst: 8000,traEst: 350 },
   ],  solicitudesUrgentes: [
     { tipo: "URGENTE", desc: "Kit de drives",   cant: 1, tec: "Miranda B.", proy: "Pepas de Oro", fecha: "16/04", estado: "Pendiente" },
     { tipo: "URGENTE", desc: "Lock tite",        cant: 1, tec: "Miranda B.", proy: "Pepas de Oro", fecha: "16/04", estado: "Pendiente" },
@@ -186,6 +186,46 @@ export const ZAHORY_SAC_DATA = {
     }
     return arr;
   })(),
+  contratos_rental: [
+    {
+      id: 'CTR-001', cliente_id: 'C002', cliente_nombre: 'Minsur S.A.',
+      equipos: ['LHD-R1600G-001', 'LHD-R1300G-002'],
+      tipo_tarifa: 'disponibilidad',
+      tarifa_base: 18500,
+      meta_dmp: 85, penalidad_pct: 0.5,
+      moneda: 'USD',
+      fecha_inicio: '2026-01-01', fecha_fin: '2026-12-31',
+      estado: 'activo', unidad_minera: 'La Oroya',
+    },
+    {
+      id: 'CTR-002', cliente_id: 'C004', cliente_nombre: 'Volcan Cía. Minera S.A.A.',
+      equipos: ['LHD-R1600H-003'],
+      tipo_tarifa: 'por_hora',
+      tarifa_hora: 85, horas_minimas: 400,
+      moneda: 'USD',
+      fecha_inicio: '2026-02-01', fecha_fin: '2026-07-31',
+      estado: 'activo', unidad_minera: 'Cerro de Pasco',
+    },
+  ],
+  liquidaciones: [
+    {
+      id: 'LIQ-2026-04-001', contrato_id: 'CTR-001', equipo_id: 'LHD-R1600G-001',
+      periodo: '2026-04', horas_facturables: 612, dmr_real: 82.4, meta_dmp: 85,
+      penalidad: 2775, total_usd: 15725, estado: 'en_conciliacion',
+      observaciones_conciliacion: [
+        { concepto: 'Horas parada programada día 14', valor_zahory: 612, valor_cliente: 598, resuelto: false },
+      ],
+    },
+  ],
+  actas: [
+    {
+      id: 'ACTA-001', tipo: 'despacho',
+      contrato_id: 'CTR-001', equipo_id: 'LHD-R1600G-001',
+      fecha: '2026-01-03', horometro: 14250,
+      estado_equipo: 'operativo', operador_recibe: 'Juan Quispe',
+      observaciones: 'Sin observaciones',
+    },
+  ],
   backlog: [
     { bkl: 'BKL-2026-090', fecha: '20/04/2026', eq: 'SC-701',   sistema: 'Motor',        hallazgo: 'SOS Feedback critico: presencia de limalla y silicio elevado en aceite motor', prioridad: 'Emergencia', score: 17, dias: 0, estado: 'Listo para OT', cicloVida: 'Listo para OT', requiereRetorno: true, fuente: 'SOS Feedback (Analisis de fluidos)', nivelAlertaSos: 'Critico', reporteLaboratorio: 'sos-sc701-2026-04.pdf' },
     { bkl: 'BKL-2026-089', fecha: '20/04/2026', eq: 'JB-DD311', sistema: 'Hidráulico',   hallazgo: 'Fuga de aceite en manguera de percusión de brazo derecho',     prioridad: 'Emergencia',  score: 95, dias: 0, estado: 'Pendiente',        cicloVida: 'Nuevo',              requiereRetorno: true,  fuente: 'Reporte diario' },

@@ -9,7 +9,7 @@ import { ProyectosTarifasPage } from './pages/ProyectosTarifasPage.jsx';
 import { ConfiguracionPage } from './pages/ConfiguracionPage.jsx';
 import { ClientesContratosPage } from './pages/ClientesContratosPage.jsx';
 import { CrearOTPage } from './pages/CrearOTPage.jsx';
-import { FlotaRentalPage, ContratosRentalPage, DespachosRentalPage, LiquidacionRentalPage } from './pages/AlquileresPages.jsx';
+import { FlotaRentalPage, ContratosRentalPage, DespachosRentalPage, LiquidacionRentalPage, DashboardRentalPage } from './pages/AlquileresPages.jsx';
 
 const TWEAKS_DEFAULTS = {
   "accentColor": "#00BCD4",
@@ -41,10 +41,37 @@ const PAGE_LABELS = {
   "equipos": { title: "Equipos y Activos", crumb: "Maestros" },
   "proyectos": { title: "Proyectos y Tarifas", crumb: "Maestros" },
   "config": { title: "Configuración del sistema", crumb: "Configuración" },
-  "flota":            { title: "Panel de Flota",       crumb: "Alquileres" },
-  "contratos-rental": { title: "Contratos y Tarifas",  crumb: "Alquileres" },
-  "checkout":         { title: "Actas / Despachos",    crumb: "Alquileres" },
-  "liquidacion":      { title: "Liquidación y DMR",    crumb: "Alquileres" },
+  "flota":            { title: "Panel de Flota",       crumb: "Flota y Alquileres" },
+  "contratos-rental": { title: "Contratos y Tarifas",  crumb: "Flota y Alquileres" },
+  "checkout":         { title: "Actas / Despachos",    crumb: "Flota y Alquileres" },
+  "liquidacion":      { title: "Liquidación y DMR",    crumb: "Flota y Alquileres" },
+  // ── Confiabilidad ──────────────────────────────────────────────────────
+  "sos-telemetria":     { title: "SOS y Telemetría",      crumb: "Confiabilidad" },
+  // ── Transporte Comercial ───────────────────────────────────────────────
+  "transporte-viajes":  { title: "Monitor de Viajes",     crumb: "Transporte Comercial" },
+  "transporte-ruta":    { title: "Ejecución en Ruta",     crumb: "Transporte Comercial" },
+  "transporte-tarifas": { title: "Maestro de Rutas",      crumb: "Transporte Comercial" },
+  // ── Maestranza ─────────────────────────────────────────────────────────
+  "maestranza-of":             { title: "Órdenes de Fabricación",  crumb: "Maestranza y Fab." },
+  "maestranza-bom":            { title: "Estructuras y BOM",       crumb: "Maestranza y Fab." },
+  "maestranza-piso":           { title: "Control de Piso",         crumb: "Maestranza y Fab." },
+  // Línea: Flota y Alquileres
+  "dashboard-rental":          { title: "Dashboard Rental",        crumb: "Flota y Alquileres" },
+  // Línea: Transporte Comercial
+  "dashboard-transporte":      { title: "Dashboard Transporte",    crumb: "Transporte Comercial" },
+  // Línea: Maestranza
+  "dashboard-maestranza":      { title: "Dashboard Maestranza",    crumb: "Maestranza y Fab." },
+  // Línea: Venta de Repuestos
+  "dashboard-repuestos":       { title: "Dashboard Repuestos",     crumb: "Venta de Repuestos" },
+  "pedidos-venta":             { title: "Pedidos de Venta",        crumb: "Venta de Repuestos" },
+  "catalogo-precios":          { title: "Catálogo y Precios",      crumb: "Venta de Repuestos" },
+  "despachos-repuestos":       { title: "Despachos",               crumb: "Venta de Repuestos" },
+  // Confiabilidad
+  "indicadores-confiabilidad": { title: "Indicadores MTBF/MTTR",   crumb: "Confiabilidad" },
+  // Almacén
+  "compras-importaciones":     { title: "Compras e Importaciones", crumb: "Almacén y Repuestos" },
+  // Comercial y Finanzas
+  "proveedores":               { title: "Proveedores",             crumb: "Comercial y Finanzas" },
 };
 
 const PlaceholderPage = ({ title }) => (
@@ -144,6 +171,7 @@ export const App = () => {
       case "equipos": content = <EquiposPage/>; break;
       case "proyectos": content = <ProyectosTarifasPage/>; break;
       case "config":            content = <ConfiguracionPage/>; break;
+      case "dashboard-rental":  content = <DashboardRentalPage onNav={setCurrent}/>; break;
       case "flota":             content = <FlotaRentalPage onNav={setCurrent}/>; break;
       case "contratos-rental":  content = <ContratosRentalPage/>; break;
       case "checkout":          content = <DespachosRentalPage onNav={setCurrent}/>; break;
