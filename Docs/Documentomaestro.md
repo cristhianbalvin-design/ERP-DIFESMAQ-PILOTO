@@ -1,7 +1,7 @@
-﻿# ZAHORY SAC — Documento Maestro del Proyecto
+# ZAHORY SAC — Documento Maestro del Proyecto
 ## ERP Sectorial de Mantenimiento Minero
 
-**Versión:** 5.0
+**Versión:** 5.1
 **Fecha:** Mayo 2026
 **Estado:** Alcance definido — desarrollo en curso
 **Metodología:** Vibe coding (desarrollo incremental asistido por IA)
@@ -360,6 +360,8 @@ Solicitud del cliente (por contrato, OS o coordinación comercial)
 | Dictado de voz | Web Speech API del navegador |
 | Hosting | Vercel + Supabase |
 
+> **Nota sobre el estado actual (Piloto v5.1):** La aplicación opera en modo "Frontend-only" construido en Vite + React, utilizando un almacén de datos local en memoria (`src/data.js`) con fines demostrativos. Incluye un Panel de Tweaks oculto para ajustar la densidad de UI, esquema de colores y visibilidad de módulos en construcción. La integración del backend real con Supabase es el próximo paso evolutivo.
+
 ### Principios de arquitectura
 
 - **Base de datos propia e independiente** — no conectada a la app actual en Fase 1
@@ -394,6 +396,12 @@ Solicitud del cliente (por contrato, OS o coordinación comercial)
 | `Finanzas` | Ve valorizaciones, OTs listas para facturar, reportes de rentabilidad. | Backoffice |
 
 > Los técnicos pueden rotar entre mina y taller. El sistema permite asignar un técnico a ambos contextos con el rol correspondiente por proyecto.
+
+### Experiencia de usuario por rol (Dashboards)
+
+El sistema presenta una arquitectura de navegación dual:
+- **Gerencia / Administración:** Accede al `DashboardPage` ejecutivo, enfocado en indicadores financieros, alertas de riesgo comercial y rentabilidad de OTs.
+- **Personal Técnico:** Accede al `TecnicoDashboard`, una vista simplificada sin información financiera, orientada a la creación rápida de partes de trabajo, visualización de historial de reportes y solicitudes de repuestos urgentes.
 
 ### Configurador de permisos por pantalla
 
@@ -1245,7 +1253,11 @@ Ver Módulo 1 — Catálogo. En Fase 1 el inventario mínimo incluye:
 
 ### Módulo 13 — Configuración del sistema
 
-Tipo de cambio USD/PEN, umbrales de alerta DMR, flujo de aprobación por proyecto, lubricantes y fluidos predefinidos, datos de empresa para PDFs, plantillas de importación, configuración de tipos de activo y tipos de OT.
+Gestión de parámetros globales y umbrales operativos que gobiernan la plataforma:
+- **Parámetros financieros:** Tipo de cambio por defecto (USD a PEN) que impacta en conversiones.
+- **Umbrales de rentabilidad:** Límites para clasificar el margen de OTs en Óptimo (por defecto > 60%) y En Riesgo (por defecto < 30%).
+- **Alertas y Notificaciones:** Toggles para activar correos al Planner (emergencias en backlog), notificaciones a Supervisores (sobrecostos en OTs) y alertas visuales de DMR.
+- **Otros parámetros:** Flujo de aprobación por proyecto, lubricantes y fluidos predefinidos, datos de empresa para PDFs, plantillas de importación, configuración de tipos de activo y tipos de OT.
 
 ---
 
@@ -2056,8 +2068,15 @@ Fase 3: + Facturación → Contabilidad → Presupuesto → MTBF → IA → BI i
 
 ---
 
-*Documento Maestro v5.0 — Mayo 2026*
+*Documento Maestro v5.1 — Mayo 2026*
 *Desarrollado por TIDEO Tech & Strategy*
+
+*Cambios v5.1 vs v5.0 (Auditoría de plataforma en React):*
+*— Sincronización del documento con la realidad del frontend (Piloto actual).*
+*— Se documentó la existencia del Panel de Tweaks para ajustes UI en vivo.*
+*— Se formalizó la navegación dual (Dashboard ejecutivo vs. TecnicoDashboard).*
+*— Se especificaron los umbrales de configuración exactos del Módulo 13 (Márgenes >60% y <30%, Alertas).*
+*— Se aclaró explícitamente el uso de data simulada en memoria (`src/data.js`) previo a la integración con Supabase.*
 
 *Cambios v5.0 vs v4.2 (sesión de desarrollo Mayo 2026):*
 *— Módulo 14 nuevo: Gestión de Alquileres (Rental Management) con 4 sub-módulos*
